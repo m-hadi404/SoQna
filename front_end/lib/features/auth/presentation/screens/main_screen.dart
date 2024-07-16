@@ -25,8 +25,8 @@ class MainScreen extends StatelessWidget {
         ..add(GetUsersEvent()),
       child: Scaffold(
         body: BlocBuilder<AuthBloc, AuthState>(
-            // buildWhen: (previous, current) =>
-            //     previous.getUsersState != current.getUsersState,
+            buildWhen: (previous, current) =>
+                previous.getUsersState != current.getUsersState,
             builder: (context, state) {
               switch (state.getUsersState) {
                 case RequestState.loading:
@@ -42,6 +42,7 @@ class MainScreen extends StatelessWidget {
                     child: Text("loded"),
                   );
                 case RequestState.error:
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.getUsersMessage)));
                   return Container(
                     child: Text("erorr"),
                   );
