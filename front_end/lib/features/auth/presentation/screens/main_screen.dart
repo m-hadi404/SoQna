@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:front_end/core/network/api_constances.dart';
 import 'package:front_end/core/utils/enums.dart';
-import 'package:front_end/features/auth/presentation/controller/auth_states.dart';
 import 'package:front_end/core/services/services_locator.dart';
 import 'package:front_end/features/auth/presentation/controller/auth_bloc.dart';
-import 'package:front_end/features/auth/presentation/controller/auth_events.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);

@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:front_end/core/utils/enums.dart';
-import 'package:front_end/features/auth/domain/entities/user.dart';
-
+part of 'auth_bloc.dart';
 class AuthState extends Equatable {
 
   final RequestState createUserState;

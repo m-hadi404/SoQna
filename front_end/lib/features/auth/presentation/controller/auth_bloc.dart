@@ -1,12 +1,16 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:front_end/core/usecase/base_usecase.dart';
 import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/features/auth/domain/usecase/create_user.dart';
 import 'package:front_end/features/auth/domain/usecase/get_users.dart';
-import 'package:front_end/features/auth/presentation/controller/auth_events.dart';
-import 'package:front_end/features/auth/presentation/controller/auth_states.dart';
+
+import '../../domain/entities/user.dart';
+
+part 'auth_events.dart';
+part 'auth_states.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final CreateUserUseCase createUserUseCase;
