@@ -26,7 +26,8 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
     if (response.statusCode == 200) {
       //   || response.statusCode == 201
       return List<UserModel>.from(
-          (response.data as List).map((e) => UserModel.fromJson(e)));
+          (response.data as List).map((e) => UserModel.fromJson(e))
+          );
     } else {
       throw ServerException(
           errorMessageModel: ErrorMessageModel.fromJson(response.data),

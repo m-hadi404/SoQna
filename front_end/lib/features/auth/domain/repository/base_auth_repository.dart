@@ -10,5 +10,6 @@ abstract class BaseAuthRepository {
       required String phone,
       required String avatar,
       required String createdAt});
+      
   ResultFuture< List<User>> getUsers();
 }

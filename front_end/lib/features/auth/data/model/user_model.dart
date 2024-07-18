@@ -4,7 +4,7 @@ import 'package:front_end/core/utils/typedef.dart';
 import 'package:front_end/features/auth/domain/entities/user.dart';
 
 class UserModel extends User {
-  UserModel({
+  const UserModel({
     required super.id,
     required super.name,
     required super.email,

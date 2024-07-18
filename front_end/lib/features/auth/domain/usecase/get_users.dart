@@ -12,4 +12,5 @@ class GetUsersUseCase extends BaseUseCase<List<User>, NoParameters> {
   ResultFuture<List<User>> call(NoParameters parameters) async {
     return await authRepository.getUsers();
   }
+  
 }
