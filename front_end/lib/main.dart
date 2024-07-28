@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_end/core/services/services_locator.dart';
 import 'package:front_end/features/auth/presentation/screens/main_screen.dart';
+import 'package:front_end/features/products/presentation/screen/display_products.dart';
 
 void main() {
   ServicesLocator().init();
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.grey.shade900,
       ),
-      home: const MainScreen(),
+      home:  displayproducts(),/* const MainScreen() */
     );
   }
 }

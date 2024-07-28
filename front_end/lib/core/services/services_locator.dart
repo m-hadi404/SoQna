@@ -1,4 +1,9 @@
 import 'package:front_end/features/auth/domain/usecase/get_users.dart';
+import 'package:front_end/features/products/data/data_source/product_remote_data_source.dart';
+import 'package:front_end/features/products/data/repository/product_repository.dart';
+import 'package:front_end/features/products/domain/repository/Base_Product_repository.dart';
+import 'package:front_end/features/products/domain/usecase/get_products.dart';
+import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:front_end/features/auth/data/data_source/user_remote_data_source.dart';
 import 'package:front_end/features/auth/data/repository/auth_repository.dart';
@@ -12,17 +17,23 @@ class ServicesLocator {
   void init() {
     /// Bloc
     sl.registerLazySingleton(() => AuthBloc(sl(), sl()));
+    sl.registerLazySingleton(() => ProductBloc(sl()));
 
     /// USE CACES
     sl.registerLazySingleton(() => CreateUserUseCase(sl()));
     sl.registerLazySingleton(() => GetUsersUseCase(sl()));
+    sl.registerLazySingleton(() => GetProductsUseCase(sl()));
 
     /// REPOSESITORY
     sl.registerLazySingleton<BaseAuthRepository>(
         () => AuthRepository(sl()));
+   sl.registerLazySingleton<BaseProductRepository>(
+        () => ProductRepository(sl()));
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseUserRemoteDataSource>(
         () => UserRemoteDataSource());
+    sl.registerLazySingleton<BaseProductRemoteDataSource>(
+        () => ProductRemoteDataSource());
   }
 }
