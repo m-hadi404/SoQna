@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:front_end/core/usecase/base_usecase.dart';
 import 'package:front_end/core/utils/typedef.dart';
-import 'package:front_end/features/carts/domain/entities/addCartEntite.dart';
+import 'package:front_end/features/carts/data/model/addCart_model.dart';
 import 'package:front_end/features/carts/domain/repository/base_cart_repository.dart';
 
 class AddCartsUseCase extends BaseUseCase<void, AddCartParameters> {
@@ -20,7 +20,7 @@ class AddCartsUseCase extends BaseUseCase<void, AddCartParameters> {
 
 class AddCartParameters extends Equatable{
   final int userId;
-  final List<Addcartentite> products;
+  final List<AddCartModel> products;
   const AddCartParameters({
     required this.userId,
     required this.products

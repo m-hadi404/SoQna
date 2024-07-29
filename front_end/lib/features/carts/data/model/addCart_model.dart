@@ -1,25 +1,24 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:front_end/core/utils/typedef.dart';
-import 'package:front_end/features/carts/domain/entities/addCartEntite.dart';
 
-
-class AddCartModel extends Addcartentite {
-  AddCartModel({
-    required super.id_product,
-    required super.quantity,
-  });
-
+class AddCartModel extends Equatable{
+  const AddCartModel({required this.productId, required this.quantity});
+  final int productId;
+  final int quantity;
   factory AddCartModel.fromJson(DataMap map) {
     return AddCartModel(
-      id_product: map['id_product'] as int,
+      productId: map['productId'] as int,
       quantity: map['quantity'] as int,
     );
   }
 
   DataMap toMap() {
     return <String, dynamic>{
-      'id': id_product,
+      'id': productId,
       'quantity': quantity,
     };
   }
@@ -32,11 +31,14 @@ class AddCartModel extends Addcartentite {
   AddCartModel copyWith({
     int? id,
     int? quantity,
-  
   }) {
     return AddCartModel(
-      id_product: id ?? id_product,
+      productId: id ?? productId,
       quantity: quantity ?? this.quantity,
     );
   }
+  
+  @override
+
+  List<Object?> get props => [productId, quantity];
 }

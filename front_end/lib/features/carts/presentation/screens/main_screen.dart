@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/core/services/services_locator.dart';
+import 'package:front_end/features/carts/data/model/addCart_model.dart';
 import 'package:front_end/features/carts/presentation/controller/cart_bloc.dart';
 
 class MainScreen extends StatelessWidget {
@@ -11,14 +12,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<CartBloc>()
-        ..add(const GetCartEvent(id:1)),
-        // ..add(CreateUserEvent(
-        //     name: 'Mohamad',
-        //     email: 'mohamad@gmail.com',
-        //     password: '12345678',
-        //     phone: '0987654324',
-        //     avatar: ApiConstances.imageUrl("${1 + Random().nextInt(1000)}"),
-        //     createdAt: DateTime.now().toString())),
+        ..add(const GetCartEvent(userId:1))..add(const AddCartEvent(userId: 1, products: [AddCartModel(productId: 144, quantity: 1)])),
       child: Scaffold(
         body: BlocBuilder<CartBloc, CartState>(
             buildWhen: (previous, current) => previous.getCartsState != current.getCartsState,

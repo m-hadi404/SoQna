@@ -9,27 +9,27 @@ abstract class CartEvent extends Equatable {
 }
 
 class GetCartEvent extends CartEvent {
-  final int id;
-  const GetCartEvent({required this.id});
+  final int userId;
+  const GetCartEvent({required this.userId});
 
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [userId];
 }
 
 class AddCartEvent extends CartEvent {
   final int userId;
-  final List<Addcartentite> products; 
+  final List<AddCartModel> products; 
   const AddCartEvent({required this.userId, required this.products});
 
   @override
   List<Object?> get props => [userId, products];
 }
 
-class deleteCartEvent extends CartEvent {
+class DeleteCartEvent extends CartEvent {
 
   final int id;
-  const deleteCartEvent({required this.id});
+  const DeleteCartEvent({required this.id});
 
 
   @override
@@ -37,10 +37,10 @@ class deleteCartEvent extends CartEvent {
 } 
 
 class UpdateCartEvent extends CartEvent{
-   final int userId;
-  final List<Addcartentite> products; 
-  const UpdateCartEvent({required this.userId, required this.products});
+   final int id;
+  final List<AddCartModel> products; 
+  const UpdateCartEvent({required this.id, required this.products});
 
   @override
-  List<Object?> get props => [userId, products];
+  List<Object?> get props => [id, products];
 }

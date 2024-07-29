@@ -11,14 +11,14 @@ class GetCartsUseCase extends BaseUseCase<List<Cart>, GetCartParameters> {
 
   @override
   ResultFuture<List<Cart>> call(GetCartParameters parameters) async {
-    return await cartRepository.getCart(parameters.id);
+    return await cartRepository.getCart(userId: parameters.userId);
   }
-  
 }
-class GetCartParameters extends Equatable{
-  final int id;
-  const GetCartParameters({required this.id});
-  
+
+class GetCartParameters extends Equatable {
+  final int userId;
+  const GetCartParameters({required this.userId});
+
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [userId];
 }

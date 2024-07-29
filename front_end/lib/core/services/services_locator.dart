@@ -19,22 +19,22 @@ final sl = GetIt.instance;
 class ServicesLocator {
   void init() {
     /// Bloc
-    sl.registerLazySingleton(() => AuthBloc(sl(), sl()));
+    // sl.registerLazySingleton(() => AuthBloc(sl(), sl()));
     sl.registerLazySingleton(()=> CartBloc(sl(), sl(), sl(), sl()));
     /// USE CACES
-    sl.registerLazySingleton(() => CreateUserUseCase(sl()));
-    sl.registerLazySingleton(() => GetUsersUseCase(sl()));
+    // sl.registerLazySingleton(() => CreateUserUseCase(sl()));
+    // sl.registerLazySingleton(() => GetUsersUseCase(sl()));
     sl.registerLazySingleton(() => GetCartsUseCase(sl()));
     sl.registerLazySingleton(() => AddCartsUseCase(sl()));
     sl.registerLazySingleton(() => DeleteCartsUseCase(sl()));
     sl.registerLazySingleton(() => UpdateCartsUseCase(sl()));
     /// REPOSESITORY
-    sl.registerLazySingleton<BaseAuthRepository>(
-        () => AuthRepository(sl()));
+    // sl.registerLazySingleton<BaseAuthRepository>(
+    //     () => AuthRepository(sl()));
     sl.registerLazySingleton<BaseCartRepository>(()=>CartRepository(sl()));
     /// DATA SOURCE
-    sl.registerLazySingleton<BaseUserRemoteDataSource>(
-        () => UserRemoteDataSource());
-    sl.registerLazySingleton<BaseCartRemoteDataSource>(()=>CartRemoteDataSource());
+    // sl.registerLazySingleton<BaseUserRemoteDataSource>(
+    //     () => UserRemoteDataSource());
+    sl.registerLazySingleton<BaseCartRemoteDataSource>( ()=> CartRemoteDataSource());
   }
 }

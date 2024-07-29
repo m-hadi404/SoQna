@@ -10,7 +10,7 @@ class DeleteCartsUseCase extends BaseUseCase<void, DeleteCartParameters> {
 
   @override
   ResultVoid call(DeleteCartParameters parameters) async {
-    return await cartRepository.deleteCart(parameters.id);
+    return await cartRepository.deleteCart(id:parameters.id);
   }
   
 }

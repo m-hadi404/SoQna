@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:front_end/core/utils/enums.dart';
-import 'package:front_end/features/carts/domain/entities/addCartEntite.dart';
+import 'package:front_end/features/carts/data/model/addCart_model.dart';
 import 'package:front_end/features/carts/domain/usecase/add_cart.dart';
 import 'package:front_end/features/carts/domain/usecase/delete_cart.dart';
 import 'package:front_end/features/carts/domain/usecase/get_carts.dart';
@@ -24,11 +24,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       : super(const CartState()) {
     on<GetCartEvent>(_getCartsHanler);
     on<AddCartEvent>(_addCartsHanler);
-    on<deleteCartEvent>(_deleteCartsHanler);
+    on<DeleteCartEvent>(_deleteCartsHanler);
     on<UpdateCartEvent>(_updateCartsHanler);
   }
   Future<void> _getCartsHanler(event, emit) async {
-    final result = await getCartsUseCase(GetCartParameters(id: event.userId));
+    final result = await getCartsUseCase(GetCartParameters(userId: event.userId));
     emit(const CartState(getCartsState: RequestState.loaded));
     result.fold(
         (l) => emit(state.copyWith(
@@ -47,7 +47,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   Future<void> _deleteCartsHanler(event, emit) async {
     final result =
-        await deleteCartsUseCase(DeleteCartParameters(id: event.userId));
+        await deleteCartsUseCase(DeleteCartParameters(id: event.id));
     result.fold(
         (l) => emit(state.copyWith(
             createCartMessage: l.message, createCartState: RequestState.error)),
@@ -56,7 +56,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   Future<void> _updateCartsHanler(event, emit) async {
     final result = await updateCartsUseCase(
-        UpdateCartParameters(id: event.userId, products: event.products));
+        UpdateCartParameters(id: event.id, products: event.products));
     result.fold(
         (l) => emit(state.copyWith(
             createCartMessage: l.message, createCartState: RequestState.error)),
