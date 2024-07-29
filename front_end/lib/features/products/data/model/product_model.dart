@@ -11,6 +11,7 @@ class ProductModel extends Product {
     required super.description,
     required super.price,
     required super.brand,
+    required super.images,
   });
 
   
@@ -21,7 +22,8 @@ class ProductModel extends Product {
       title: map['title'] as String,
       description: map['description'] as String,
       price: map['price'] as double,
-      brand: map['brand'] ?? ""
+      brand: map['brand'] ?? "",
+      images: map['images']??[],
  
     );
   }
@@ -41,6 +43,7 @@ ProductModel  copyWith({
     String? description,
     double? price,
     String? brand,
+    List<String>?images,
    
   }) {
     return ProductModel(
@@ -49,6 +52,7 @@ ProductModel  copyWith({
       description: description ?? this.description,
       price: price ?? this.price,
       brand: brand ?? this.brand ,
+      images:images??this.images,
       
     );
   }

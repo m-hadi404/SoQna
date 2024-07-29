@@ -6,6 +6,7 @@ import 'package:front_end/features/products/presentation/controller/product_bloc
 
 class displayproducts extends StatelessWidget {
   const displayproducts({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -31,7 +32,52 @@ class displayproducts extends StatelessWidget {
 
                   print(state.getProductMessage);      
                   return Container(
-                    child: Text("loded"),
+                 
+                    child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, // عدد الأعمدة
+            childAspectRatio: 2 / 3, // نسبة العرض إلى الارتفاع
+            crossAxisSpacing: 10, // المسافة الأفقية بين البطاقات
+            mainAxisSpacing: 10, // المسافة العمودية بين البطاقات
+          ),
+          padding: EdgeInsets.all(10),
+          itemCount: state.getProducts.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                // تنفيذ حدث عند الضغط على البطاقة
+             /*    print('Card ${[index].name} pressed'); */
+              },
+              child: Card(
+                child: Column(
+                  children: [
+                    Image.network(
+                      state.getProducts[index].images[0],
+                      fit: BoxFit.cover,
+                      height: 100,
+                      width: double.infinity,
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      '\$${state.getProducts[index].price.toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      state.getProducts[index].title,
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
                   );
                 case RequestState.error:
                   ScaffoldMessenger.of(context).showSnackBar(

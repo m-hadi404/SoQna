@@ -7,7 +7,7 @@ class Product extends Equatable {
     required this.description,
     required this.price,
     required this.brand,
-  
+    required this.images
   });
 
   final int id;
@@ -15,16 +15,10 @@ class Product extends Equatable {
   final String description;
   final double price;
   final String brand;
- 
+  final List<dynamic> images;
 
   @override
   List<Object> get props {
-    return [
-      id,
-     title,
-     description,
-     price,
-     brand
-    ];
+    return [id, title, description, price, brand,images];
   }
 }
