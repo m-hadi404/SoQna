@@ -21,7 +21,6 @@ class AuthState extends Equatable {
         email: '',
         firstName: '',
         lastName: '',
-        age: 0,
         image: ''),
     this.getUserState = RequestState.loading,
     this.getUserMessage = '',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_session_jwt/flutter_session_jwt.dart';
 import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/core/services/services_locator.dart';
 import 'package:front_end/features/auth/presentation/controller/auth_bloc.dart';
@@ -28,8 +29,15 @@ class MainScreen extends StatelessWidget {
                   );
                 case RequestState.loaded:
                   print(state.user);
-                  return Container(
-                    child: Text("loaded"),
+                  return Column(
+                    children: [
+                      Container(
+                        child: Text("loaded"),
+                      ),
+                      ElevatedButton(onPressed: () async{
+                          print(await FlutterSessionJwt.getPayload());
+                      }, child: Text('token'))
+                    ],
                   );
                 case RequestState.error:
                   ScaffoldMessenger.of(context).showSnackBar(

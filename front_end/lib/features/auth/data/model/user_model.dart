@@ -11,7 +11,6 @@ class UserModel extends User {
       required super.email,
       required super.firstName,
       required super.lastName,
-      required super.age,
       required super.image});
 
 
@@ -22,7 +21,6 @@ class UserModel extends User {
       email: map['email'] as String,
       firstName: map['firstName'] as String,
       lastName: map['lastName'] as String,
-      age: map['age'] as int,
       image: map['image'] as String,
     );
   }
@@ -35,7 +33,6 @@ class UserModel extends User {
     String? email,
     String? firstName,
     String? lastName,
-    int? age,
     String? image,
   }) {
     return User(
@@ -44,7 +41,6 @@ class UserModel extends User {
       email: email ?? this.email,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
-      age: age ?? this.age,
       image: image ?? this.image,
     );
   }

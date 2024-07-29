@@ -9,8 +9,7 @@ abstract class BaseAuthRepository {
       required String password,
       required String email,
       required String firstName,
-      required String lastName,
-      required int age});
+      required String lastName});
   ResultFuture<User> signIn(
       {required String username, required String password});
   ResultFuture<User> updateUser(
@@ -19,6 +18,5 @@ abstract class BaseAuthRepository {
       String? username,
       String? email,
       String? firstName,
-      String? lastName,
-      int? age});
+      String? lastName});
 }

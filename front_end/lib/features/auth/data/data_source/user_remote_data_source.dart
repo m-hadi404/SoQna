@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_session_jwt/flutter_session_jwt.dart';
 import 'package:front_end/core/error/exceptions.dart';
 import 'package:front_end/core/network/api_constances.dart';
 import 'package:front_end/core/network/error_message.dart';
@@ -16,8 +17,7 @@ abstract class BaseUserRemoteDataSource {
       required String password,
       required String email,
       required String firstName,
-      required String lastName,
-      required int age});
+      required String lastName});
   Future<UserModel> signIn(
       {required String username, required String password});
   Future<UserModel> upateUser(
@@ -26,15 +26,15 @@ abstract class BaseUserRemoteDataSource {
       String? username,
       String? email,
       String? firstName,
-      String? lastName,
-      int? age});
+      String? lastName});
   Future<Map> refreshToken({required refreshToken});
 }
 
 class UserRemoteDataSource extends BaseUserRemoteDataSource {
   @override
   Future<UserModel> getUser() async {
-    final response = await Dio().get(ApiConstances.getUserPath);
+    final response = await Dio().get(ApiConstances.getUserPath,
+        options: Options(headers: ApiConstances.headers("")));
     // print(response.data);
     if (response.statusCode == 200) {
       //   || response.statusCode == 201
@@ -51,9 +51,11 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
       {required String username, required String password}) async {
     try {
       final response = await Dio().post(ApiConstances.signInPath,
-          options: Options(headers: {'Content-Type': 'application/json'}),
+          options: Options(headers: ApiConstances.headers("")),
           data: const JsonEncoder()
               .convert({'username': username, 'password': password}));
+      print(response.data);
+      await FlutterSessionJwt.saveToken(response.data['token']);
       return UserModel.fromJson(response.data as DataMap);
     } on DioException catch (e) {
       throw ServerException(
@@ -68,19 +70,16 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
       required String password,
       required String email,
       required String firstName,
-      required String lastName,
-      required int age}) async {
+      required String lastName}) async {
     final response = await Dio().post(ApiConstances.signUpPath,
-        options: Options(headers: {'Content-Type': 'application/json'}),
+        options: Options(headers: ApiConstances.headers("")),
         data: const JsonEncoder().convert({
           'username': username,
           'email': email,
+          'password': password,
           'firstName': firstName,
           'lastName': lastName,
-          'age': age
         }));
-    print(response.data);
-
     if (response.statusCode == 200 || response.statusCode == 201) {
       return UserModel.fromJson(response.data as DataMap);
     } else {
@@ -97,15 +96,14 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
       String? username,
       String? email,
       String? firstName,
-      String? lastName,
-      int? age}) async {
-    final response = await Dio().post(ApiConstances.signUpPath,
+      String? lastName}) async {
+    final response = await Dio().put(ApiConstances.updatePash(id),
         data: const JsonEncoder().convert({
           'username': username,
+          'password': password,
           'email': email,
           'firstName': firstName,
           'lastName': lastName,
-          'age': age,
         }));
 
     if (response.statusCode == 200 || response.statusCode == 201) {

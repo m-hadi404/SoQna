@@ -18,8 +18,7 @@ class SignUpUseCase extends BaseUseCase<User, SignUpParameters> {
           password: parameters.password,
           email: parameters.email,
           firstName: parameters.firstName,
-          lastName: parameters.lastName,
-          age: parameters.age);
+          lastName: parameters.lastName);
 }
 
 class SignUpParameters extends Equatable {
@@ -29,7 +28,6 @@ class SignUpParameters extends Equatable {
   final String email;
   final String firstName;
   final String lastName;
-  final int age;
 
   const SignUpParameters({
     required this.username,
@@ -37,7 +35,6 @@ class SignUpParameters extends Equatable {
     required this.email,
     required this.firstName,
     required this.lastName,
-    required this.age,
   });
 
   
@@ -50,7 +47,6 @@ class SignUpParameters extends Equatable {
       email,
       firstName,
       lastName,
-      age,
     ];
   }
 }

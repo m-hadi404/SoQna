@@ -59,8 +59,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
         email: event.email,
         firstName: event.firstName,
-        lastName: event.lastName,
-        age: event.age));
+        lastName: event.lastName));
     result.fold(
         (l) => emit(state.copyWith(
             signUpMessage: l.message, signUpState: RequestState.error)),
@@ -77,7 +76,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         email: event.email,
         firstName: event.firstName,
         lastName: event.lastName,
-        age: event.age
         ));
     result.fold(
         (l) => emit(state.copyWith(

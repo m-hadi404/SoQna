@@ -19,8 +19,7 @@ class UpdateUserUseCase extends BaseUseCase<User, UpdateUserParameters> {
           password: parameters.password,
           email: parameters.email,
           firstName: parameters.firstName,
-          lastName: parameters.lastName,
-          age: parameters.age);
+          lastName: parameters.lastName);
 }
 
 class UpdateUserParameters extends Equatable {
@@ -31,7 +30,6 @@ class UpdateUserParameters extends Equatable {
   final String? email;
   final String? firstName;
   final String? lastName;
-  final int? age;
 
   const UpdateUserParameters({
     required this.id,
@@ -40,7 +38,6 @@ class UpdateUserParameters extends Equatable {
     this.email,
     this.firstName,
     this.lastName,
-    this.age
   });
 
   

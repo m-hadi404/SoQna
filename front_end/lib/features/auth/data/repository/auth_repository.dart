@@ -44,16 +44,14 @@ class AuthRepository extends BaseAuthRepository {
       required String password,
       required String email,
       required String firstName,
-      required String lastName,
-      required int age}) async {
+      required String lastName}) async {
     try {
       final result = await _baseUserRemoteDataSource.signUp(
           username: username,
           password: password,
           email: email,
           firstName: firstName,
-          lastName: lastName,
-          age: age);
+          lastName: lastName);
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(
@@ -69,8 +67,7 @@ class AuthRepository extends BaseAuthRepository {
       String? username,
       String? email,
       String? firstName,
-      String? lastName,
-      int? age}) async {
+      String? lastName}) async {
     try {
       final result = await _baseUserRemoteDataSource.upateUser(
           id: id,
@@ -78,8 +75,7 @@ class AuthRepository extends BaseAuthRepository {
           password: password,
           email: email,
           firstName: firstName,
-          lastName: lastName,
-          age: age);
+          lastName: lastName);
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(

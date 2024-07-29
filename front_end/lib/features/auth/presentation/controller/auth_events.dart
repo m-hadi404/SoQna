@@ -29,16 +29,13 @@ class SignUpEvent extends AuthEvent {
   final String email;
   final String firstName;
   final String lastName;
-  final int age;
 
   const SignUpEvent({
     required this.username,
     required this.password,
     required this.email,
     required this.firstName,
-    required this.lastName,
-    required this.age,
-  });
+    required this.lastName  });
 
   @override
   List<Object> get props {
@@ -48,7 +45,6 @@ class SignUpEvent extends AuthEvent {
       email,
       firstName,
       lastName,
-      age,
     ];
   }
 }
@@ -60,7 +56,6 @@ class UpdateUserEvent extends AuthEvent {
   final String? email;
   final String? firstName;
   final String? lastName;
-  final int? age;
 
   const UpdateUserEvent(
       {required this.id,
@@ -68,8 +63,7 @@ class UpdateUserEvent extends AuthEvent {
       this.username,
       this.email,
       this.firstName,
-      this.lastName,
-      this.age});
+      this.lastName});
 
   @override
   List<Object> get props {
