@@ -21,14 +21,11 @@ class CartRemoteDataSource extends BaseCartRemoteDataSource {
   @override
   Future<void> addCart(
       {required int userId, required List<AddCartModel> products}) async {
-        print({
-          "userId": userId,
-          "products": products.map((e) => e)as List<AddCartModel>,
-        });
+       
     final response = await Dio().post(ApiConstances.addCartsPath,
         data: const JsonEncoder().convert({
           "userId": userId,
-          "products": products.map((e) => e.toJson()),
+          "products": [products[0].toJson()],
         }));
     if (response.statusCode != 200 && response.statusCode != 201) {
       throw ServerException(
@@ -50,7 +47,7 @@ class CartRemoteDataSource extends BaseCartRemoteDataSource {
   @override
   Future<List<CartModel>> getCart({required int userId}) async {
     final response = await Dio().get(ApiConstances.cartsUserPath(userId));
-    //print(response.data);
+    print(response.data);
     if (response.statusCode == 200) {
       if(response.data['products'] != null){
         final List<CartModel> getCarts = (response.data['products'] as List<DataMap>).map((e)=>CartModel.fromJson(e)) as List<CartModel>;
