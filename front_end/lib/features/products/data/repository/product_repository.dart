@@ -7,12 +7,12 @@ import 'package:front_end/features/products/domain/entities/product.dart';
 import 'package:front_end/features/products/domain/repository/Base_Product_repository.dart';
 
 class ProductRepository extends BaseProductRepository {
-ProductRepository(this._baseProductRemoteDataSource);
+  ProductRepository(this._baseProductRemoteDataSource);
 
   final BaseProductRemoteDataSource _baseProductRemoteDataSource;
 
   @override
-  ResultFuture<List<Product>>getProducts() async {
+  ResultFuture<List<Product>> getProducts() async {
     final result = await _baseProductRemoteDataSource.getProduct();
 
     try {
@@ -23,6 +23,4 @@ ProductRepository(this._baseProductRemoteDataSource);
           stateCode: failure.stateCode));
     }
   }
-
-
 }

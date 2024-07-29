@@ -13,7 +13,7 @@ class Product extends Equatable {
   final int id;
   final String title;
   final String description;
-  final int price;
+  final double price;
   final String brand;
  
 

@@ -1,4 +1,6 @@
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:front_end/core/utils/typedef.dart';
 import 'package:front_end/features/products/domain/entities/product.dart';
 
@@ -18,9 +20,9 @@ class ProductModel extends Product {
       id: map['id'] as int,
       title: map['title'] as String,
       description: map['description'] as String,
-      price: map['price'] as int,
-      brand: map['brand'] as String,
-     
+      price: map['price'] as double,
+      brand: map['brand'] ?? ""
+ 
     );
   }
 
@@ -37,7 +39,7 @@ ProductModel  copyWith({
     int? id,
     String? title,
     String? description,
-    int? price,
+    double? price,
     String? brand,
    
   }) {
