@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:front_end/core/network/api_constances.dart';
 import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/core/services/services_locator.dart';
 import 'package:front_end/features/auth/presentation/controller/auth_bloc.dart';
@@ -13,20 +10,15 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<AuthBloc>()
-        ..add(GetUsersEvent()),
-        // ..add(CreateUserEvent(
-        //     name: 'Mohamad',
-        //     email: 'mohamad@gmail.com',
-        //     password: '12345678',
-        //     phone: '0987654324',
-        //     avatar: ApiConstances.imageUrl("${1 + Random().nextInt(1000)}"),
-        //     createdAt: DateTime.now().toString())),
+        ..add(SignInEvent(
+            username: 'emilys',
+            password: 'emilyspass')),
       child: Scaffold(
         body: BlocBuilder<AuthBloc, AuthState>(
             buildWhen: (previous, current) =>
-                previous.getUsersState != current.getUsersState,
+                previous.signInState != current.signInState,
             builder: (context, state) {
-              switch (state.getUsersState) {
+              switch (state.signInState) {
                 case RequestState.loading:
                   return const SizedBox(
                     height: 250.0,
@@ -35,12 +27,13 @@ class MainScreen extends StatelessWidget {
                     ),
                   );
                 case RequestState.loaded:
-                  print(state.getUsers);
+                  print(state.user);
                   return Container(
-                    child: Text("loded"),
+                    child: Text("loaded"),
                   );
                 case RequestState.error:
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.getUsersMessage)));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(state.signUpMessage)));
                   return Container(
                     child: Text("erorr"),
                   );

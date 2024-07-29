@@ -12,22 +12,11 @@ class AuthRepository extends BaseAuthRepository {
   final BaseUserRemoteDataSource _baseUserRemoteDataSource;
 
   @override
-  ResultVoid createUser(
-      {required String name,
-      required String email,
-      required String password,
-      required String phone,
-      required String avatar,
-      required String createdAt}) async {
+  ResultFuture<User> getUser() async {
+    final result = await _baseUserRemoteDataSource.getUser();
+    print(result);
     try {
-      await _baseUserRemoteDataSource.createUser(
-          name: name,
-          email: email,
-          password: password,
-          phone: phone,
-          avatar: avatar,
-          createdAt: createdAt);
-      return const Right(null);
+      return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(
           message: failure.errorMessageModel.statusMessage,
@@ -36,10 +25,61 @@ class AuthRepository extends BaseAuthRepository {
   }
 
   @override
-  ResultFuture<List<User>> getUsers() async {
-    final result = await _baseUserRemoteDataSource.getUsers();
-
+  ResultFuture<User> signIn(
+      {required String username, required String password}) async {
     try {
+      final result = await _baseUserRemoteDataSource.signIn(
+          username: username, password: password);
+      return Right(result);
+    } on ServerException catch (failure) {
+      return Left(ServerFailure(
+          message: failure.errorMessageModel.statusMessage,
+          stateCode: failure.stateCode));
+    }
+  }
+
+  @override
+  ResultFuture<User> signUp(
+      {required String username,
+      required String password,
+      required String email,
+      required String firstName,
+      required String lastName,
+      required int age}) async {
+    try {
+      final result = await _baseUserRemoteDataSource.signUp(
+          username: username,
+          password: password,
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          age: age);
+      return Right(result);
+    } on ServerException catch (failure) {
+      return Left(ServerFailure(
+          message: failure.errorMessageModel.statusMessage,
+          stateCode: failure.stateCode));
+    }
+  }
+
+  @override
+  ResultFuture<User> updateUser(
+      {required int id,
+      required String password,
+      String? username,
+      String? email,
+      String? firstName,
+      String? lastName,
+      int? age}) async {
+    try {
+      final result = await _baseUserRemoteDataSource.upateUser(
+          id: id,
+          username: username,
+          password: password,
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          age: age);
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(
