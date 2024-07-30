@@ -28,12 +28,17 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<UpdateCartEvent>(_updateCartsHanler);
   }
   Future<void> _getCartsHanler(event, emit) async {
-    final result = await getCartsUseCase(GetCartParameters(userId: event.userId));
-    emit(const CartState(getCartsState: RequestState.loaded));
-    result.fold(
-        (l) => emit(state.copyWith(
-            createCartMessage: l.message, createCartState: RequestState.error)),
-        (_) => emit(state.copyWith(createCartState: RequestState.loaded)));
+    //emit(state.copyWith(createCartState: RequestState.loading));
+    final result =
+        await getCartsUseCase(GetCartParameters(userId: event.userId));
+    result.fold((l) {
+      print("eroooooooooooooooooooooooooooooor");
+      emit(state.copyWith(
+          createCartMessage: l.message, createCartState: RequestState.error));
+    }, (re) {
+      emit(state.copyWith(getCartsState: RequestState.loaded,getCarts: re));
+      print('object');
+    });
   }
 
   Future<void> _addCartsHanler(event, emit) async {
@@ -42,16 +47,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     result.fold(
         (l) => emit(state.copyWith(
             createCartMessage: l.message, createCartState: RequestState.error)),
-        (_) => emit(state.copyWith(createCartState: RequestState.loaded)));
+        (_) => emit(state.copyWith(getCartsState: RequestState.loaded)));
   }
 
   Future<void> _deleteCartsHanler(event, emit) async {
-    final result =
-        await deleteCartsUseCase(DeleteCartParameters(id: event.id));
+    final result = await deleteCartsUseCase(DeleteCartParameters(id: event.id));
     result.fold(
         (l) => emit(state.copyWith(
             createCartMessage: l.message, createCartState: RequestState.error)),
-        (_) => emit(state.copyWith(createCartState: RequestState.loaded)));
+        (_) => emit(state.copyWith(getCartsState: RequestState.loaded)));
   }
 
   Future<void> _updateCartsHanler(event, emit) async {
@@ -60,6 +64,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     result.fold(
         (l) => emit(state.copyWith(
             createCartMessage: l.message, createCartState: RequestState.error)),
-        (_) => emit(state.copyWith(createCartState: RequestState.loaded)));
+        (_) => emit(state.copyWith(getCartsState: RequestState.loaded)));
   }
 }

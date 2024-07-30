@@ -9,7 +9,6 @@ class ApiConstances {
   static const String addCartsPath = "$cartsPath/add";
   static String deleteUpdateCartPath(int id) => "$cartsPath/$id";
   static String cartsUserPath(int userId) => "$usersPath/$userId/carts";
-
   static String imageUrl(String number) => "$_baseImgUrl$number.jpg";
 
 }

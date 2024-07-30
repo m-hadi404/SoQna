@@ -14,9 +14,9 @@ class CartModel extends Cart {
 
   factory CartModel.fromJson(DataMap map) {
     return CartModel(
-      id: map['id'] as String,
+      id: map['id'] as int,
       title: map['title'] as String,
-      discountedTotal: map['total'] as int,
+      discountedTotal: map['total'] as double,
       totalQuantity: map['quantity'] as int,
       image: map['thumbnail'] as String,
     );
@@ -38,9 +38,9 @@ class CartModel extends Cart {
   bool get stringify => true;
 
   CartModel copyWith({
-    String? id,
+    int? id,
     String? title,
-    int? discountedTotal,
+    double? discountedTotal,
     int? totalQuantity,
     String? image,
   }) {

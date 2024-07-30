@@ -9,9 +9,9 @@ class Cart extends Equatable {
     required this.image,
   });
 
-  final String id;
+  final int id;
   final String title;
-  final int discountedTotal;
+  final double discountedTotal;
   final int totalQuantity;
   final String image;
 

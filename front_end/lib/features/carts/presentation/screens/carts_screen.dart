@@ -11,26 +11,24 @@ class CartsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>
-          sl<CartBloc>()..add(const GetCartEvent(userId: 1)),
-      child: Scaffold(
-          body: BlocBuilder<CartBloc, CartState>(builder: (context, state ) {
-        if (state.getCartsState == RequestState.loaded) {
-          return ListView.builder(
-            itemCount: state.getCarts.length,
-            itemBuilder: (context, index) {
-              return const CartWidget();
-            },
-          );
-        }else if(state.getCartsState == RequestState.error){
-          return Text(state.getCartsMessage);
-        }else{
-          return CircularProgressIndicator();
-
-        }
-      }
-      )
-      )
-    );
+        create: (BuildContext context) =>
+            sl<CartBloc>()..add(const GetCartEvent(userId: 6)),
+        child: Scaffold(
+            body: BlocBuilder<CartBloc, CartState>(
+              buildWhen: (s,e){return e.getCartsState != s.getCartsState;},
+              builder: (context, state) {
+          if (state.getCartsState == RequestState.loaded) {
+            return ListView.builder(
+              itemCount: state.getCarts.length,
+              itemBuilder: (context, index) {
+                return const CartWidget();
+              },
+            );
+          } else if (state.getCartsState == RequestState.loading) {
+            return CircularProgressIndicator();
+          } else {
+            return Text(state.getCartsMessage);
+          }
+        })));
   }
 }

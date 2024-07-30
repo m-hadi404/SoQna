@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:front_end/core/error/exceptions.dart';
 import 'package:front_end/core/network/api_constances.dart';
 import 'package:front_end/core/network/error_message.dart';
-import 'package:front_end/core/utils/typedef.dart';
 import 'package:front_end/features/carts/data/model/addCart_model.dart';
 import 'package:front_end/features/carts/data/model/cart_model.dart';
 
@@ -47,15 +46,13 @@ class CartRemoteDataSource extends BaseCartRemoteDataSource {
   @override
   Future<List<CartModel>> getCart({required int userId}) async {
     final response = await Dio().get(ApiConstances.cartsUserPath(userId));
-    print(response.data);
     if (response.statusCode == 200) {
-      if(response.data['products'] != null){
-        final List<CartModel> getCarts = (response.data['products'] as List<DataMap>).map((e)=>CartModel.fromJson(e)) as List<CartModel>;
+      if(response.data != null){
+        final List<CartModel> getCarts = List<CartModel>.from((response.data['carts'][0]['products'] as List).map((e) => CartModel.fromJson(e)));
         return getCarts;
       }else{
-         throw ServerException(
-          errorMessageModel: const ErrorMessageModel(statusCode: 666, statusMessage: "no cart", success: "no"),
-          stateCode: response.statusCode ?? 666);
+         print("no product");
+         return [const CartModel(discountedTotal: 0, id: 0, title: '0', totalQuantity: 0, image: '0')];
       }
     } else {
       throw ServerException(
