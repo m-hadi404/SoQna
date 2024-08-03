@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_session_jwt/flutter_session_jwt.dart';
 import 'package:front_end/core/error/exceptions.dart';
 import 'package:front_end/core/network/api_constances.dart';
 import 'package:front_end/core/network/error_message.dart';
@@ -55,7 +54,6 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
           data: const JsonEncoder()
               .convert({'username': username, 'password': password}));
       print(response.data);
-      await FlutterSessionJwt.saveToken(response.data['token']);
       return UserModel.fromJson(response.data as DataMap);
     } on DioException catch (e) {
       throw ServerException(
