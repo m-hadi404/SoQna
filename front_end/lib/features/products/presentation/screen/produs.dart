@@ -1,96 +1,185 @@
 import 'package:flutter/material.dart';
-
-class MyApp1 extends StatelessWidget {
-    final int id;
-  final String title;
-  final String description;
-  final double price;
-  final String brand;
-  final List<dynamic> images;
-    MyApp1({
-   required this.id,
-    required this.title,
-    required this.description,
-    required this.price,
-    required this.brand,
-    required this.images,
-  });
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
-  // قائمة من العناصر
-  final List<Item> items = [
-    Item(
-        'Item 1',
-        'https://cdn.dummyjson.com/products/images/groceries/Cat%20Food/1.png',
-        10.0),
-    Item('Item 2', 'https://via.placeholder.com/150', 20.0),
-    Item('Item 3', 'https://via.placeholder.com/150', 30.0),
-    Item('Item 4', 'https://via.placeholder.com/150', 40.0),
-    Item('Item 5', 'https://via.placeholder.com/150', 50.0),
-  ];
+class ProductDetailView extends StatelessWidget {
+ 
+
+
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Cards from List'),
-        ),
-        body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // عدد الأعمدة
-            childAspectRatio: 2 / 3, // نسبة العرض إلى الارتفاع
-            crossAxisSpacing: 10, // المسافة الأفقية بين البطاقات
-            mainAxisSpacing: 10, // المسافة العمودية بين البطاقات
-          ),
-          padding: EdgeInsets.all(10),
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                // تنفيذ حدث عند الضغط على البطاقة
-                print('Card ${items[index].name} pressed');
-              },
-              child: Card(
-                child: Column(
-                  children: [
-                    Image.network(
-                      items[index].imagePath,
-                      fit: BoxFit.cover,
-                      height: 100,
-                      width: double.infinity,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      '\$${items[index].price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      Container(
+                        height: 196.h,
+                        width: double.infinity,
+                        child: Image.network(
+                          _productModel.image,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      items[index].name,
-                      style: TextStyle(
-                        fontSize: 14,
+                      IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.black,
+                        ),
                       ),
+                    ],
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
+                    child: Column(
+                      children: [
+                        CustomText(
+                          text: _productModel.name,
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        SizedBox(
+                          height: 25.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            RoundedShapeInfo(
+                              title: 'Size',
+                              content: CustomText(
+                                text: _productModel.size,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                alignment: Alignment.center,
+                              ),
+                            ),
+                            RoundedShapeInfo(
+                              title: 'Colour',
+                              content: Container(
+                                height: 22.h,
+                                width: 22.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: _productModel.color,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 33.h,
+                        ),
+                        CustomText(
+                          text: 'Details',
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        CustomText(
+                          text: _productModel.description,
+                          fontSize: 14,
+                          height: 2,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          },
-        ),
+            ),
+          ),
+          Material(
+            elevation: 12,
+            color: Colors.white,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 17.h, horizontal: 30.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        text: 'PRICE',
+                        fontSize: 12,
+                        color: Colors.grey,
+                      ),
+                      CustomText(
+                        text: '\$${_productModel.price}',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: primaryColor,
+                      ),
+                    ],
+                  ),
+                  GetBuilder<CartViewModel>(
+                    builder: (controller) => Container(
+                      width: 146.w,
+                      child: CustomButton('ADD', () {
+                        controller.addProduct(
+                          CartModel(
+                            name: _productModel.name,
+                            image: _productModel.image,
+                            price: _productModel.price,
+                            productId: _productModel.productId,
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class Item {
-  final String name;
-  final String imagePath;
-  final double price;
+class RoundedShapeInfo extends StatelessWidget {
+  final String title;
+  final Widget content;
 
-  Item(this.name, this.imagePath, this.price);
+  const RoundedShapeInfo({
+    required this.title,
+    required this.content,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40.h,
+      width: 160.w,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade400),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomText(
+              text: title,
+              fontSize: 14,
+              alignment: Alignment.center,
+            ),
+            content,
+          ],
+        ),
+      ),
+    );
+  }
 }
