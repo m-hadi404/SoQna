@@ -26,10 +26,6 @@ class CategoryProductsView extends StatelessWidget {
                     ),
                   );
                 case RequestState.loaded:
-               
-
-                 
-
                   return Container(
                     child: Column(
                       children: [
@@ -82,9 +78,24 @@ class CategoryProductsView extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
-                                 context.read<ProductBloc>().add(GetProductEvent(id:index));
+                                    switch (state.getproductState) {
+                                      case RequestState.loading:
+                                        return const SizedBox(
+                                          height: 250.0,
+                                          child: Center(
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                        );
+                                      case RequestState.loaded:
+                                        return ;
+                                      case RequestState.error:
+                                        return ;
+                                    }
+                                    context
+                                        .read<ProductBloc>()
+                                        .add(GetProductEvent(id: index));
                                     print(state.getProduct);
-                                             print(state.getProductMessage);
+                                    print(state.getProductMessage);
                                   },
                                   child: Container(
                                     width: 164.w,
