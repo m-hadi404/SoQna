@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:front_end/core/services/services_locator.dart';
 import 'package:front_end/features/auth/presentation/screens/main_screen.dart';
 import 'package:front_end/features/products/presentation/screen/display_products.dart';
@@ -14,17 +15,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Auth App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.grey.shade900,
-      ),
-      home:  displayproducts()
-    /*   displayproducts() *//* const MainScreen() */
-    );
+    return ScreenUtilInit(
+        designSize: Size(375, 812), // أبعاد التصميم الأصلية
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp(
+              title: 'Auth App',
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData.dark().copyWith(
+                scaffoldBackgroundColor: Colors.grey.shade900,
+              ),
+              home: CategoryProductsView()
+              /*   displayproducts() */ /* const MainScreen() */
+              );
+        });
   }
 }
-
-
-
