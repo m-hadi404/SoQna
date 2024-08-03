@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
       title: 'Carts App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.grey.shade900,
+        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
-      home: const CartsScreen()
+      home: CartsScreen()
     );
   }
 }

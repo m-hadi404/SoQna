@@ -32,7 +32,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     final result =
         await getCartsUseCase(GetCartParameters(userId: event.userId));
     result.fold((l) {
-      print("eroooooooooooooooooooooooooooooor");
       emit(state.copyWith(
           createCartMessage: l.message, createCartState: RequestState.error));
     }, (re) {
