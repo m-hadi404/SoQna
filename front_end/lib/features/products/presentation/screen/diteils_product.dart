@@ -57,22 +57,23 @@ class ProductDetailView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             RoundedShapeInfo(
-                              title: 'Size',
+                              title: 'pirce',
                               content: CustomText(
-                                text: _productModel.size,
+                                text: _productModel.price.toString(),
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 alignment: Alignment.center,
                               ),
                             ),
                             RoundedShapeInfo(
-                              title: 'Colour',
+                              title: 'brand',
                               content: Container(
+                                child: Text(_productModel.brand),
                                 height: 22.h,
                                 width: 22.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
-                                  color: _productModel.color,
+                                 
                                 ),
                               ),
                             ),
