@@ -8,7 +8,6 @@ class CustomTextFormField extends StatelessWidget {
   final String title;
   final String hintText;
   final String? Function(String?) validatorFn;
-  final String initialValue;
   final TextInputType? keyboardType;
   final bool obscureText;
   final TextEditingController? controller;
@@ -17,7 +16,6 @@ class CustomTextFormField extends StatelessWidget {
     required this.title,
     required this.hintText,
     required this.validatorFn,
-    this.initialValue = '',
     this.keyboardType,
     this.obscureText = false,
     this.controller
@@ -47,7 +45,6 @@ class CustomTextFormField extends StatelessWidget {
           ),
           keyboardType: keyboardType,
           obscureText: obscureText,
-          initialValue: initialValue,
           validator: validatorFn,
           controller:controller,
         ),

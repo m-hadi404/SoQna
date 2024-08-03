@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/features/auth/presentation/controller/auth_bloc.dart';
 
 import 'package:front_end/core/utils/colors.dart';
@@ -11,15 +12,20 @@ import '../components/custom_button.dart';
 class SignInView extends StatelessWidget {
   SignInView({super.key});
 
-  
   final _formKey = GlobalKey<FormState>();
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener(
-      listener: (context, state) {},
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state.signInState == RequestState.loaded) {
+          Navigator.popAndPushNamed(context, '/');
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('login success')));
+        }
+      },
       child: OrientationBuilder(
         builder: (context, orientation) => Scaffold(
           body: SingleChildScrollView(
