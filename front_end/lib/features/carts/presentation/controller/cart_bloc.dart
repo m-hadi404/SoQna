@@ -35,7 +35,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       emit(state.copyWith(
           createCartMessage: l.message, createCartState: RequestState.error));
     }, (re) {
-      emit(state.copyWith(getCartsState: RequestState.loaded,getCarts: re));
+      emit(state.copyWith(getCartsState: RequestState.loaded, getCarts: re));
       print('object');
     });
   }

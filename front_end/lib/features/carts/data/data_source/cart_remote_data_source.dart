@@ -20,7 +20,6 @@ class CartRemoteDataSource extends BaseCartRemoteDataSource {
   @override
   Future<void> addCart(
       {required int userId, required List<AddCartModel> products}) async {
-       
     final response = await Dio().post(ApiConstances.addCartsPath,
         data: const JsonEncoder().convert({
           "userId": userId,
@@ -47,12 +46,21 @@ class CartRemoteDataSource extends BaseCartRemoteDataSource {
   Future<List<CartModel>> getCart({required int userId}) async {
     final response = await Dio().get(ApiConstances.cartsUserPath(userId));
     if (response.statusCode == 200) {
-      if(response.data != null){
-        final List<CartModel> getCarts = List<CartModel>.from((response.data['carts'][0]['products'] as List).map((e) => CartModel.fromJson(e)));
+      if (response.data != null) {
+        final List<CartModel> getCarts = List<CartModel>.from(
+            (response.data['carts'][0]['products'] as List)
+                .map((e) => CartModel.fromJson(e)));
         return getCarts;
-      }else{
-         print("no product");
-         return [const CartModel(discountedTotal: 0, id: 0, title: '0', totalQuantity: 0, image: '0')];
+      } else {
+        print("no product");
+        return [
+          const CartModel(
+              discountedTotal: 0,
+              id: 0,
+              title: '0',
+              totalQuantity: 0,
+              image: '0')
+        ];
       }
     } else {
       throw ServerException(
@@ -64,15 +72,13 @@ class CartRemoteDataSource extends BaseCartRemoteDataSource {
   @override
   Future<void> updateCart(
       {required int id, required List<AddCartModel> products}) async {
-         print({
-          "products": products.map((e) => e.toJson()).fold(products, (a,b)=>a),
-        });
+    final data = {
+      "products": products.map((e) => e.toJson()).first,
+    };
+    //print(data);
     final response = await Dio().put(ApiConstances.deleteUpdateCartPath(id),
-    
-        data: const JsonEncoder().convert({
-          "products": products.map((e) => e.toJson()).fold(products, (a,b)=>a),
-        }));
-       
+        data: const JsonEncoder().convert(data));
+
     if (response.statusCode != 200 && response.statusCode != 201) {
       throw ServerException(
           errorMessageModel: ErrorMessageModel.fromJson(response.data),

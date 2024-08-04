@@ -57,6 +57,7 @@ class CartRepository extends BaseCartRepository {
       await _baseCartRemoteDataSource.updateCart(
           id: id, products: products);
       return Right(null);
+      
     } on ServerException catch (failure) {
       return Left(ServerFailure(
           message: failure.errorMessageModel.statusMessage,
