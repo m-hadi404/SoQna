@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return OrientationBuilder(
       builder: (context, orientation) => ScreenUtilInit(
+        //pup
         designSize: orientation == Orientation.portrait
             ? Size(375, 812)
             : Size(812, 375),
