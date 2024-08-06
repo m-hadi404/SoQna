@@ -12,7 +12,7 @@ part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final GetProductsUseCase getProductsUseCase;
-  ProductBloc(this.getProductsUseCase) : super(const ProductState()) {
+  ProductBloc(this.getProductsUseCase) : super( ProductState()) {
     on<GetProductsEvent>(_getProductsHandler);
     on<GetProductEvent>(_getProductHandler);
   }
@@ -29,29 +29,32 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             getProducts: r, getproductsState: RequestState.loaded)));
   }
 
-  FutureOr<void> _getProductHandler(
-      GetProductEvent event, Emitter<ProductState> emit) async {
-    try {
-      Product? product = state.getProducts
-          .where((Product p) {
-            if (event.id == p.id) {
-              return true;
-            }
-            return false;
-          })
-          .toList()
-          .first;
-      if (product != null) {
-        emit(state.copyWith(
-            getProductsMessage: " not found",
-            getproductsState: RequestState.error));
-      } else {
-        emit(state.copyWith(
-            getProduct: product, getproductState: RequestState.loaded));
-      }
-      print(product);
-    } catch (e) {
-      print(e);
+  Future<void> _getProductHandler(
+    GetProductEvent event, Emitter<ProductState> emit) async {
+  try {
+    // ابحث عن المنتج باستخدام ID من الحدث
+    var productList = state.getProducts.where((Product p) => p.id == event.id).toList();
+
+    // تحقق مما إذا كان المنتج موجودًا
+    if (productList.isEmpty) {
+      emit(state.copyWith(
+        getProductMessage: "Product not found",
+        getproductState: RequestState.error,
+      ));
+    } else {
+      emit(state.copyWith(
+        getProduct: productList.first,
+        getproductState: RequestState.loaded,
+      ));
     }
+  } catch (e) {
+    // التعامل مع أي أخطاء أثناء العملية
+    emit(state.copyWith(
+      getProductMessage: e.toString(),
+      getproductState: RequestState.error,
+    ));
   }
+}
+
+
 }

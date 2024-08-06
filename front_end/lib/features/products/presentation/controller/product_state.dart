@@ -8,14 +8,14 @@ class ProductState extends Equatable {
   final List<Product> getProducts;
   final RequestState getproductsState;
   final String getProductsMessage;
-  final Product ? getProduct;
+  final Product?  getProduct;
   final RequestState getproductState;
   final String getProductMessage;
   const ProductState({
     this.getProducts = const [],
     this.getproductsState = RequestState.loading,
     this. getProductsMessage = '',
-        this.getProduct ,
+    this.getProduct,
     this.getproductState = RequestState.loading,
     this. getProductMessage = '',
   });
@@ -25,7 +25,7 @@ class ProductState extends Equatable {
     List<Product>? getProducts,
     String? getProductsMessage,
        RequestState? getproductState,
-   Product? getProduct,
+     Product? getProduct,
     String? getProductMessage
   }) {
     return ProductState(
@@ -41,6 +41,6 @@ class ProductState extends Equatable {
   @override
   List<Object?> get props =>
    [getProducts, getproductsState, getProductsMessage,
-    getproductState, getProductMessage
+    getproductState, getProductMessage, getProduct 
    ];
 }

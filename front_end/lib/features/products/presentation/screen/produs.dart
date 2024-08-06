@@ -5,6 +5,7 @@ import 'package:front_end/core/services/services_locator.dart';
 import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/features/products/presentation/component/custem_text.dart';
 import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
+import 'package:front_end/features/products/presentation/screen/diteils_product.dart';
 
 class CategoryProductsView extends StatelessWidget {
   @override
@@ -78,8 +79,18 @@ class CategoryProductsView extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
-                                   
-                             
+                                       context.read<ProductBloc>().add(GetProductEvent(id: state.getProducts[index].id));
+                                                                 Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductDetailView(),
+              ),
+            
+            ); 
+
+                                    
+                                    print(index);
+          
                                   },
                                   child: Container(
                                     width: 164.w,
