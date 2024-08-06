@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:front_end/core/services/services_locator.dart';
 import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/features/products/presentation/component/custem_text.dart';
+import 'package:front_end/features/products/presentation/component/custm_buttn.dart';
 import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
 import 'package:front_end/features/products/presentation/screen/diteils_product.dart';
 
@@ -137,7 +138,8 @@ class CategoryProductsView extends StatelessWidget {
                                         ),
                                         Padding(
                                             padding:
-                                                EdgeInsets.only(bottom: 10))
+                                                EdgeInsets.only(bottom: 10)),
+                                                        
                                       ],
                                     ),
                                   ),
@@ -156,8 +158,13 @@ class CategoryProductsView extends StatelessWidget {
                     child: Text("erorr"),
                   );
               }
+              
             }),
+            
       ),
     );
   }
 }
+
+        
+                  

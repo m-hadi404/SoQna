@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/features/products/presentation/component/custem_text.dart';
+import 'package:front_end/features/products/presentation/component/custm_buttn.dart';
 import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
 
 class ProductDetailView extends StatelessWidget {
@@ -117,6 +118,12 @@ class ProductDetailView extends StatelessWidget {
                           fontSize: 14,
                           height: 2,
                         ),
+                          Container(
+                      width: 146.w,
+                      child: CustomButton('ADD', () {
+                   
+                      }),
+                    ),
                       ],
                     ),
                   ),
