@@ -19,4 +19,8 @@ abstract class BaseAuthRepository {
       String? email,
       String? firstName,
       String? lastName});
+
+  ResultVoid logout();
+
+  ResultFuture<bool> isAuthorized();
 }

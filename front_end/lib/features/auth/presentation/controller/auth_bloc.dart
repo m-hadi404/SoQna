@@ -10,6 +10,8 @@ import 'package:front_end/features/auth/domain/usecase/sing_up.dart';
 import 'package:front_end/features/auth/domain/usecase/update_user.dart';
 
 import '../../domain/entities/user.dart';
+import '../../domain/usecase/is_authorized.dart';
+import '../../domain/usecase/logout.dart';
 
 part 'auth_events.dart';
 part 'auth_states.dart';
@@ -19,14 +21,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInUseCase signInUseCase;
   final SignUpUseCase signUpUseCase;
   final UpdateUserUseCase updateUserUseCase;
+  final IsAuthorizedUseCase isAuthorizedUseCase;
+  final LogoutUseCase logoutUseCase;
 
   AuthBloc(this.getUserUseCase, this.signInUseCase, this.signUpUseCase,
-      this.updateUserUseCase)
+      this.updateUserUseCase,this.isAuthorizedUseCase,this.logoutUseCase)
       : super(const AuthState()) {
     on<GetUserEvent>(_getUserHandler);
     on<SignInEvent>(_singInHandler);
     on<SignUpEvent>(_singUpHandler);
     on<UpdateUserEvent>(_updateUserHandler);
+    on<IsAuthorizedEvent>(_isAuthorizedHandler);
+    on<LogoutEvent>(_logoutHandler);
   }
 
   FutureOr<void> _getUserHandler(
@@ -82,5 +88,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             updateUserMessage: l.message, updateUserState: RequestState.error)),
         (r) => emit(state.copyWith(
             user: r, updateUserState: RequestState.loaded))); //createUser: r,
+  }
+
+  FutureOr<void> _isAuthorizedHandler(
+      IsAuthorizedEvent event, Emitter<AuthState> emit) async {
+    final result = await isAuthorizedUseCase(const NoParameters());
+    result.fold(
+        (l) => emit(state.copyWith(
+            isAuthorizedMessage: l.message,
+            isAuthorizedState: RequestState.error,
+            isAuthorized: false)),
+        (r) => emit(state.copyWith(
+            isAuthorized: r, isAuthorizedState: RequestState.loaded))); //createUser: r,
+  }
+
+  FutureOr<void> _logoutHandler(
+      LogoutEvent event, Emitter<AuthState> emit) async {
+    final result = await logoutUseCase(const NoParameters());
+    result.fold(
+        (l) => emit(state.copyWith(
+            logoutMessage: l.message, logoutState: RequestState.error)),
+        (_) => emit(state.copyWith(
+            isAuthorized: false,
+            logoutState: RequestState.loaded))); //createUser: r,
   }
 }

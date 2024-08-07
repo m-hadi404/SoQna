@@ -18,8 +18,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<AuthBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<AuthBloc>()..add(IsAuthorizedEvent()),
+        ),
+      ],
       child: OrientationBuilder(
         builder: (context, orientation) => ScreenUtilInit(
           designSize: orientation == Orientation.portrait

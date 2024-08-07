@@ -10,6 +10,10 @@ abstract class AuthEvent extends Equatable {
 
 class GetUserEvent extends AuthEvent {}
 
+class LogoutEvent extends AuthEvent {}
+
+class IsAuthorizedEvent extends AuthEvent {}
+
 class SignInEvent extends AuthEvent {
   final String username;
   final String password;

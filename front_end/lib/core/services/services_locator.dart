@@ -1,4 +1,7 @@
+import 'package:front_end/features/auth/data/data_source/user_local_data_source.dart';
 import 'package:front_end/features/auth/domain/usecase/get_user.dart';
+import 'package:front_end/features/auth/domain/usecase/is_authorized.dart';
+import 'package:front_end/features/auth/domain/usecase/logout.dart';
 import 'package:front_end/features/auth/domain/usecase/sing_up.dart';
 import 'package:front_end/features/auth/domain/usecase/update_user.dart';
 import 'package:get_it/get_it.dart';
@@ -13,19 +16,23 @@ final sl = GetIt.instance;
 class ServicesLocator {
   void init() {
     /// Bloc
-    sl.registerLazySingleton(() => AuthBloc(sl(), sl(),sl(),sl()));
+    sl.registerLazySingleton(() => AuthBloc(sl(), sl(),sl(),sl(),sl(),sl()));
 
     /// USE CACES
     sl.registerLazySingleton(() => GetUserUseCase(sl()));
     sl.registerLazySingleton(() => SignInUseCase(sl()));
     sl.registerLazySingleton(() => SignUpUseCase(sl()));
     sl.registerLazySingleton(() => UpdateUserUseCase(sl()));
+    sl.registerLazySingleton(() => IsAuthorizedUseCase(sl()));
+    sl.registerLazySingleton(() => LogoutUseCase(sl()));
 
     /// REPOSESITORY
     sl.registerLazySingleton<BaseAuthRepository>(
-        () => AuthRepository(sl()));
+        () => AuthRepository(sl(),sl()));
 
     /// DATA SOURCE
+    sl.registerLazySingleton<BaseUserLocalDataSource>(
+        () => UserLocalDataSource(baseUserRemoteDataSource: sl()));
     sl.registerLazySingleton<BaseUserRemoteDataSource>(
         () => UserRemoteDataSource());
   }

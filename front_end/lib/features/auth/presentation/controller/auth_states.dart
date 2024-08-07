@@ -1,6 +1,7 @@
 part of 'auth_bloc.dart';
 
 class AuthState extends Equatable {
+  
   final User user;
   final RequestState getUserState;
   final String getUserMessage;
@@ -13,6 +14,13 @@ class AuthState extends Equatable {
 
   final RequestState updateUserState;
   final String updateUserMessage;
+
+  final bool isAuthorized;
+  final RequestState isAuthorizedState;
+  final String isAuthorizedMessage;
+
+  final RequestState logoutState;
+  final String logoutMessage;
 
   const AuthState({
     this.user = const User(
@@ -30,21 +38,29 @@ class AuthState extends Equatable {
     this.signUpMessage = '',
     this.updateUserState = RequestState.loading,
     this.updateUserMessage = '',
+    this.isAuthorized = false,
+    this.isAuthorizedState = RequestState.loading,
+    this.isAuthorizedMessage = '',
+    this.logoutState = RequestState.loading,
+    this.logoutMessage = '',
   });
+
 
   AuthState copyWith({
     User? user,
     RequestState? getUserState,
     String? getUserMessage,
-    User? signIn,
     RequestState? signInState,
     String? signInMessage,
-    User? singUp,
     RequestState? signUpState,
     String? signUpMessage,
-    User? updateUser,
     RequestState? updateUserState,
     String? updateUserMessage,
+    bool? isAuthorized,
+    RequestState? isAuthorizedState,
+    String? isAuthorizedMessage,
+    RequestState? logoutState,
+    String? logoutMessage,
   }) {
     return AuthState(
       user: user ?? this.user,
@@ -56,6 +72,11 @@ class AuthState extends Equatable {
       signUpMessage: signUpMessage ?? this.signUpMessage,
       updateUserState: updateUserState ?? this.updateUserState,
       updateUserMessage: updateUserMessage ?? this.updateUserMessage,
+      isAuthorized: isAuthorized ?? this.isAuthorized,
+      isAuthorizedState: isAuthorizedState ?? this.isAuthorizedState,
+      isAuthorizedMessage: isAuthorizedMessage ?? this.isAuthorizedMessage,
+      logoutState: logoutState ?? this.logoutState,
+      logoutMessage: logoutMessage ?? this.logoutMessage,
     );
   }
 
@@ -71,6 +92,11 @@ class AuthState extends Equatable {
       signUpMessage,
       updateUserState,
       updateUserMessage,
+      isAuthorized,
+      isAuthorizedState,
+      isAuthorizedMessage,
+      logoutState,
+      logoutMessage,
     ];
   }
 }

@@ -1,3 +1,7 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../features/auth/data/model/jwt_model.dart';
+
 class ApiConstances {
   static const String _baseUrl = "https://dummyjson.com";
 
@@ -12,6 +16,15 @@ class ApiConstances {
     } else {
       return {"accept": "application/json"};
     }
+  }
+
+  static Future<String> getToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? jwt = prefs.getString('jwt');
+    if (jwt != null) {
+      return JwtModel.fromStr(jwt).token;
+    }
+    return "";
   }
 
   static String updatePash(int id) => "$_baseUrl/users/$id";
