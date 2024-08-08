@@ -8,13 +8,10 @@ import 'package:front_end/features/products/presentation/component/custm_buttn.d
 import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
 
 class ProductDetailView extends StatelessWidget {
- 
   ProductDetailView();
 
   @override
   Widget build(BuildContext context) {
-    // Dispatch the event only once when the widget is built for the first time
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Product Details'),
@@ -33,102 +30,99 @@ class ProductDetailView extends StatelessWidget {
         },
         builder: (BuildContext context, ProductState state) {
           if (state.getproductState == RequestState.loading) {
-         
-            print(state.getProduct);
             return Center(
               child: CircularProgressIndicator(),
             );
           } else if (state.getproductState == RequestState.loaded) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  Stack(
-                    alignment: Alignment.centerLeft,
-                    children: [
-                      Container(
-                        height: 196.h,
-                        width: double.infinity,
-                        child: Image.network(
-                          state.getProduct!.images[0],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
+            return Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        CustomText(
-                          text: state.getProduct!.title,
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        SizedBox(
-                          height: 25.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Stack(
+                          alignment: Alignment.centerLeft,
                           children: [
-                            RoundedShapeInfo(
-                              title: 'Price',
-                              content: CustomText(
-                                text: state.getProduct!.price.toString(),
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                alignment: Alignment.center,
-                              ),
-                            ),
-                            RoundedShapeInfo(
-                              title: 'Brand',
-                              content: Container(
-                                child: Text(state.getProduct!.brand),
-                                height: 22.h,
-                                width: 22.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
+                            Container(
+                              height: 196.h,
+                              width: double.infinity,
+                              child: Image.network(
+                                state.getProduct!.images[0],
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 33.h,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.w, vertical: 4.h),
+                          child: Column(
+                            children: [
+                              CustomText(
+                                text: state.getProduct!.title,
+                                fontSize: 26.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              SizedBox(
+                                height: 25.h,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  RoundedShapeInfo(
+                                    title: 'Price',
+                                    content: CustomText(
+                                      text: state.getProduct!.price.toString(),
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.bold,
+                                      alignment: Alignment.center,
+                                    ),
+                                  ),
+                                  RoundedShapeInfo(
+                                    title: 'Brand',
+                                    content: Container(
+                                      child: Text(state.getProduct!.brand),
+                                      height: 22.h,
+                                      width: 22.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8.r),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 33.h,
+                              ),
+                              CustomText(
+                                text: 'Details',
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              CustomText(
+                                text: state.getProduct!.description,
+                                fontSize: 14.sp,
+                                height: 2.h,
+                              ),
+                            ],
+                          ),
                         ),
-                        CustomText(
-                          text: 'Details',
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        CustomText(
-                          text: state.getProduct!.description,
-                          fontSize: 14,
-                          height: 2,
-                        ),
-                          Container(
-                      width: 146.w,
-                      child: CustomButton('ADD', () {
-                   
-                      }),
-                    ),
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+                Padding(
+                  
+                  padding: EdgeInsets.all(16.w),
+                  child: CustomButton('ADD TO CART', () {
+                    // action on button press
+                  }),
+                ),
+              ],
             );
           } else {
             return Center(
@@ -166,7 +160,7 @@ class RoundedShapeInfo extends StatelessWidget {
           children: [
             CustomText(
               text: title,
-              fontSize: 14,
+              fontSize: 14.sp,
               alignment: Alignment.center,
             ),
             content,

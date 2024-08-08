@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:front_end/core/services/services_locator.dart';
 import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
+import 'package:front_end/features/products/presentation/screen/display_products.dart';
 import 'package:front_end/features/products/presentation/screen/produs.dart';
 
 void main() {
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               fontFamily: 'SourceSansPro',
             ),
-            home: CategoryProductsView(),
+            home:CategoryProductsView(),
             debugShowCheckedModeBanner: false,
             title: 'soqna_ui',
           ),

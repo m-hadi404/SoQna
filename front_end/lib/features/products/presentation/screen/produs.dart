@@ -4,167 +4,193 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:front_end/core/services/services_locator.dart';
 import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/features/products/presentation/component/custem_text.dart';
-import 'package:front_end/features/products/presentation/component/custm_buttn.dart';
 import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
 import 'package:front_end/features/products/presentation/screen/diteils_product.dart';
 
-class CategoryProductsView extends StatelessWidget {
+class CategoryProductsView extends StatefulWidget {
+  @override
+  _CategoryProductsViewState createState() => _CategoryProductsViewState();
+}
+
+class _CategoryProductsViewState extends State<CategoryProductsView> {
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(() {
+      context.read<ProductBloc>().add(SearchProductEvent(query: _searchController.text));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<ProductBloc>()..add(GetProductsEvent()),
       child: Scaffold(
-        body: BlocBuilder<ProductBloc, ProductState>(
-            buildWhen: (previous, current) =>
-                previous.getproductsState != current.getproductsState ||
-                previous.getproductState != current.getproductState,
-            builder: (context, state) {
-              switch (state.getproductsState) {
-                case RequestState.loading:
-                  return const SizedBox(
-                    height: 250.0,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                case RequestState.loaded:
-                  return Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 130.h,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                bottom: 24.h, left: 16.w, right: 16.w),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: BoxConstraints(),
-                                  onPressed: () {
-                                    ;
-                                  },
-                                  icon: Icon(
-                                    Icons.arrow_back_ios,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                CustomText(
-                                  text: 'products',
-                                  fontSize: 20,
-                                  alignment: Alignment.bottomCenter,
-                                ),
-                                Container(
-                                  width: 24,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                right: 16.w, left: 16.w, bottom: 24.h),
-                            child: GridView.builder(
-                              padding: const EdgeInsets.all(0),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 16,
-                                crossAxisSpacing: 15,
-                                mainAxisExtent: 320,
-                              ),
-                              itemCount: state.getProducts.length,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                       context.read<ProductBloc>().add(GetProductEvent(id: state.getProducts[index].id));
-                                                                 Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProductDetailView(),
+        appBar: AppBar(
+          title: Text('Welcome Back'),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.add_shopping_cart, size: 40, color: Colors.green[30]),
+            ),
+          ],
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child: Text(
+                  'Drawer Header',
+                  style: TextStyle(color: Colors.black87, fontSize: 24),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                ),
               ),
-            
-            ); 
-
-                                    
-                                    print(index);
-          
-                                  },
-                                  child: Container(
-                                    width: 164.w,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(4.r),
-                                                color: Colors.white,
-                                              ),
-                                              height: 240.h,
-                                              width: 164.w,
-                                              child: Image.network(
-                                                state.getProducts[index]
-                                                    .images[0],
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                            CustomText(
-                                              text: state
-                                                  .getProducts[index].title,
-                                              fontSize: 14,
-                                            ),
-                                            /*       CustomText(
-                                text:  state.getProducts[index].description,
-                                fontSize: 12,
-                                color: Colors.grey,
-                                maxLines: 1,
-                              ), */
-                                            CustomText(
-                                              text:
-                                                  '\$${state.getProducts[index].price.toString()}',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ],
-                                        ),
-                                        Padding(
-                                            padding:
-                                                EdgeInsets.only(bottom: 10)),
-                                                        
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text('Home'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text('Settings'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
+        body: BlocBuilder<ProductBloc, ProductState>(
+          buildWhen: (previous, current) =>
+              previous.getproductsState != current.getproductsState ||
+              previous.getproductState != current.getproductState ||
+              previous.searchResults != current.searchResults, // أضف هذا
+          builder: (context, state) {
+            switch (state.getproductsState) {
+              case RequestState.loading:
+                return const SizedBox(
+                  height: 250.0,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              case RequestState.loaded:
+                final productsToDisplay = _searchController.text.isEmpty
+                    ? state.getProducts
+                    : state.searchResults;
+                return Container(
+                  padding: EdgeInsets.only(top: 65.h, bottom: 14.h, right: 16.w, left: 16.w),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 49.h,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(45.r),
+                        ),
+                        child: TextFormField(
+                          controller: _searchController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Colors.black,
                             ),
+                            hintText: 'Search...',
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                case RequestState.error:
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(state.getProductMessage)));
-                  return Container(
-                    child: Text("erorr"),
-                  );
-              }
-              
-            }),
-            
+                      ),
+                      SizedBox(height: 44.h),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 16.w, left: 16.w, bottom: 24.h),
+                          child: GridView.builder(
+                            padding: const EdgeInsets.all(1),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 16,
+                              crossAxisSpacing: 15,
+                              mainAxisExtent: 320,
+                            ),
+                            itemCount: productsToDisplay.length, // تحديث عدد العناصر المعروضة
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  context.read<ProductBloc>().add(GetProductEvent(id: productsToDisplay[index].id));
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProductDetailView(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 164.w,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(4.r),
+                                              color: Colors.white,
+                                            ),
+                                            height: 240.h,
+                                            width: 164.w,
+                                            child: Image.network(
+                                              productsToDisplay[index].images[0],
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          CustomText(
+                                            text: productsToDisplay[index].title,
+                                            fontSize: 14,
+                                          ),
+                                          CustomText(
+                                            text: '\$${productsToDisplay[index].price.toString()}',
+                                            fontSize: 14,
+                                            color: Colors.black,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              case RequestState.error:
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.getProductsMessage)),
+                );
+                return Container(
+                  child: Text("Error"),
+                );
+            }
+          },
+        ),
       ),
     );
   }
 }
-
-        
-                  

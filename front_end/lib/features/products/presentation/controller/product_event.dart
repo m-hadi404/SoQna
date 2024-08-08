@@ -14,3 +14,11 @@ class GetProductEvent extends ProductEvent {
   final int? id;
  const  GetProductEvent( { required this.id});
 }
+class SearchProductEvent extends  ProductEvent {
+  final String query;
+
+  const SearchProductEvent({required this.query});
+
+  @override
+  List<Object> get props => [query];
+}

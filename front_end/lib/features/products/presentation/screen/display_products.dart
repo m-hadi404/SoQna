@@ -1,92 +1,183 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:front_end/core/utils/enums.dart';
-import 'package:front_end/core/services/services_locator.dart';
-import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:front_end/features/products/presentation/component/custem_text.dart';
 
-class displayproducts extends StatelessWidget {
-  const displayproducts({super.key});
-
+class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<ProductBloc>()..add(GetProductsEvent()),
-      child: Scaffold(
-        body: BlocBuilder<ProductBloc, ProductState>(
-            buildWhen: (previous, current) =>
-                previous.getproductsState != current.getproductsState || previous.getproductState != current.getproductState,
-            builder: (context, state) {
-              switch (state.getproductsState) {
-                case RequestState.loading:
-                  return const SizedBox(
-                    height: 250.0,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                case RequestState.loaded:
+    return Scaffold(
+      body: SingleChildScrollView(
+        padding:
+            EdgeInsets.only(top: 65.h, bottom: 14.h, right: 16.w, left: 16.w),
+        child: Column(
+          children: [
+            Container(
+              height: 49.h,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(45.r),
+              ),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                ),
+                onFieldSubmitted: (value) {},
+              ),
+            ),
+            SizedBox(
+              height: 44.h,
+            ),
+            CustomText(
+              text: 'Categories',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+            SizedBox(
+              height: 19.h,
+            ),
+            ListViewCategories(),
+            SizedBox(
+              height: 50.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomText(
+                  text: 'Best Selling',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: CustomText(
+                    text: 'See all',
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30.h,
+            ),
+            ListViewProducts(),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-                  context.read<ProductBloc>().add(GetProductEvent(id: 0));
-
-                  print(state.getProducts);
-
-                  print(state.getProductMessage);      
-                  return Container(
-                 
-                    child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // عدد الأعمدة
-            childAspectRatio: 2 / 3, // نسبة العرض إلى الارتفاع
-            crossAxisSpacing: 10, // المسافة الأفقية بين البطاقات
-            mainAxisSpacing: 10, // المسافة العمودية بين البطاقات
-          ),
-          padding: EdgeInsets.all(10),
-          itemCount: state.getProducts.length,
+class ListViewCategories extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 90.h,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemCount:6,
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                // تنفيذ حدث عند الضغط على البطاقة
-             /*    print('Card ${[index].name} pressed'); */
+           
               },
-              child: Card(
-                child: Column(
-                  children: [
-                    Image.network(
-                      state.getProducts[index].images[0],
-                      fit: BoxFit.cover,
-                      height: 100,
-                      width: double.infinity,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      '\$${state.getProducts[index].price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Material(
+                    elevation: 1,
+                    borderRadius: BorderRadius.circular(50.r),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50.r),
+                        color: Colors.white,
+                      ),
+                      height: 60.h,
+                      width: 60.w,
+                      child: Padding(
+                        padding: EdgeInsets.all(14.h),
+                        child: Image.network(
+                          ''
+                        ),
                       ),
                     ),
-                    SizedBox(height: 5),
-                    Text(
-                      state.getProducts[index].title,
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  CustomText(
+                    text: 'name',
+                    fontSize: 12,
+                  ),
+                ],
               ),
             );
           },
+          separatorBuilder: (context, index) {
+            return SizedBox(
+              width: 20.w,
+            );
+          },
         ),
-                  );
-                case RequestState.error:
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(state.getProductMessage)));
-                  return Container(
-                    child: Text("erorr"),
-                  );
-              }
-            }),
+       );
+  }
+}
+
+class ListViewProducts extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 320.h,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {},
+            child: Container(
+              width: 164.w,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.r),
+                      color: Colors.white,
+                    ),
+                    height: 240.h,
+                    width: 164.w,
+                    /*  child: Image.network(
+                        
+                        controller.products[index].image,
+                        fit: BoxFit.cover,
+                      ), */
+                  ),
+                  CustomText(
+                    text: 'name',
+                    fontSize: 16,
+                  ),
+                  CustomText(
+                    text: 'description',
+                    fontSize: 12,
+                    color: Colors.grey,
+                    maxLines: 1,
+                  ),
+                  CustomText(
+                    text: 'price',
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+        separatorBuilder: (context, index) {
+          return SizedBox(
+            width: 15.w,
+          );
+        },
       ),
     );
   }
