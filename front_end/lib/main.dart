@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:front_end/core/services/services_locator.dart';
 import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
-import 'package:front_end/features/products/presentation/screen/display_products.dart';
-import 'package:front_end/features/products/presentation/screen/produs.dart';
+import 'package:front_end/features/products/presentation/screen/products.dart';
 import 'package:front_end/features/auth/presentation/controller/auth_bloc.dart';
-import 'package:front_end/home_screan.dart';
 import 'features/auth/presentation/screens/signin_view.dart';
 import 'features/auth/presentation/screens/signup_view.dart';
 
@@ -45,7 +43,7 @@ class MyApp extends StatelessWidget {
             routes: {
               '/signIn': (context) => SignInView(),
               '/signUp': (context) => SignUpView(),
-              '/': (context) => const CategoryProductsView(),
+              '/': (context) =>  CategoryProductsView(),
             },
           ),
         ),
