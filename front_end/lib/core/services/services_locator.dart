@@ -21,21 +21,14 @@ final sl = GetIt.instance;
 
 class ServicesLocator {
   void init() {
+    _authSL();
+    _productsSL();
+  }
+
+  void _authSL() {
     /// Bloc
-    sl.registerLazySingleton(() => AuthBloc(sl(), sl()));
-    sl.registerLazySingleton(() => ProductBloc(sl()));
-
-    /// USE CACES
-    sl.registerLazySingleton(() => CreateUserUseCase(sl()));
-    sl.registerLazySingleton(() => GetUsersUseCase(sl()));
-    sl.registerLazySingleton(() => GetProductsUseCase(sl()));
-
-    /// REPOSESITORY
-    sl.registerLazySingleton<BaseAuthRepository>(
-        () => AuthRepository(sl()));
-   sl.registerLazySingleton<BaseProductRepository>(
-        () => ProductRepository(sl()));
-    sl.registerLazySingleton(() => AuthBloc(sl(), sl(),sl(),sl(),sl(),sl()));
+    sl.registerLazySingleton(
+        () => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl()));
 
     /// USE CACES
     sl.registerLazySingleton(() => GetUserUseCase(sl()));
@@ -47,13 +40,27 @@ class ServicesLocator {
 
     /// REPOSESITORY
     sl.registerLazySingleton<BaseAuthRepository>(
-        () => AuthRepository(sl(),sl()));
+        () => AuthRepository(sl(), sl()));
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseUserLocalDataSource>(
         () => UserLocalDataSource(baseUserRemoteDataSource: sl()));
     sl.registerLazySingleton<BaseUserRemoteDataSource>(
         () => UserRemoteDataSource());
+  }
+
+  void _productsSL() {
+    /// Bloc
+    sl.registerLazySingleton(() => ProductBloc(sl()));
+
+    /// USE CACES
+    sl.registerLazySingleton(() => GetProductsUseCase(sl()));
+
+    /// REPOSESITORY
+    sl.registerLazySingleton<BaseProductRepository>(
+        () => ProductRepository(sl()));
+
+    /// DATA SOURCE
     sl.registerLazySingleton<BaseProductRemoteDataSource>(
         () => ProductRemoteDataSource());
   }
