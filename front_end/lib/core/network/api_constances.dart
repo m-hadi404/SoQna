@@ -5,10 +5,16 @@ import '../../features/auth/data/model/jwt_model.dart';
 class ApiConstances {
   static const String _baseUrl = "https://dummyjson.com";
 
+
+
+
   static const String signInPath = "$_baseUrl/auth/login";
   static const String signUpPath = "$_baseUrl/users/add";
   static const String getUserPath = "$_baseUrl/auth/me";
   static const String refershTokenPath = "$_baseUrl/auth/refresh";
+  
+  static const String usersPath = "$_baseUrl/users";
+  static const String productsPath = "$_baseUrl/products";
 
   static Map<String, dynamic> headers(String token) {
     if (token != "") {
