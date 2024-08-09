@@ -1,3 +1,5 @@
+import 'package:get_it/get_it.dart';
+
 import 'package:front_end/features/products/data/data_source/product_remote_data_source.dart';
 import 'package:front_end/features/products/data/repository/product_repository.dart';
 import 'package:front_end/features/products/domain/repository/Base_Product_repository.dart';
@@ -10,7 +12,6 @@ import 'package:front_end/features/auth/domain/usecase/is_authorized.dart';
 import 'package:front_end/features/auth/domain/usecase/logout.dart';
 import 'package:front_end/features/auth/domain/usecase/sing_up.dart';
 import 'package:front_end/features/auth/domain/usecase/update_user.dart';
-import 'package:get_it/get_it.dart';
 import 'package:front_end/features/auth/data/data_source/user_remote_data_source.dart';
 import 'package:front_end/features/auth/data/repository/auth_repository.dart';
 import 'package:front_end/features/auth/domain/repository/base_auth_repository.dart';
