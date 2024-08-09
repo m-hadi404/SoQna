@@ -1,4 +1,3 @@
-import 'package:front_end/features/auth/domain/usecase/get_users.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:front_end/features/products/data/data_source/product_remote_data_source.dart';
@@ -29,16 +28,26 @@ class ServicesLocator {
 
   void _authSL() {
     /// Bloc
-    sl.registerLazySingleton(() => AuthBloc(sl(), sl()));
+    sl.registerLazySingleton(() => AuthBloc(sl(), sl(),sl(),sl(),sl(),sl()));
 
+    /// USE CACES
+    sl.registerLazySingleton(() => GetUserUseCase(sl()));
+    sl.registerLazySingleton(() => SignInUseCase(sl()));
+    sl.registerLazySingleton(() => SignUpUseCase(sl()));
+    sl.registerLazySingleton(() => UpdateUserUseCase(sl()));
+    sl.registerLazySingleton(() => IsAuthorizedUseCase(sl()));
+    sl.registerLazySingleton(() => LogoutUseCase(sl()));
 
     /// REPOSESITORY
     sl.registerLazySingleton<BaseAuthRepository>(
-        () => AuthRepository(sl()));
+        () => AuthRepository(sl(),sl()));
 
     /// DATA SOURCE
+    sl.registerLazySingleton<BaseUserLocalDataSource>(
+        () => UserLocalDataSource(baseUserRemoteDataSource: sl()));
     sl.registerLazySingleton<BaseUserRemoteDataSource>(
         () => UserRemoteDataSource());
+
   }
 
   void _productsSL() {
