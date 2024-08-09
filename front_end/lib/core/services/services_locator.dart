@@ -18,6 +18,15 @@ import 'package:front_end/features/auth/domain/repository/base_auth_repository.d
 import 'package:front_end/features/auth/domain/usecase/sing_in.dart';
 import 'package:front_end/features/auth/presentation/controller/auth_bloc.dart';
 
+import '../../features/carts/data/data_source/cart_remote_data_source.dart';
+import '../../features/carts/data/repository/cart_repository.dart';
+import '../../features/carts/domain/repository/base_cart_repository.dart';
+import '../../features/carts/domain/usecase/add_cart.dart';
+import '../../features/carts/domain/usecase/delete_cart.dart';
+import '../../features/carts/domain/usecase/get_carts.dart';
+import '../../features/carts/domain/usecase/update_cart.dart';
+import '../../features/carts/presentation/controller/cart_bloc.dart';
+
 final sl = GetIt.instance;
 
 class ServicesLocator {
@@ -64,5 +73,22 @@ class ServicesLocator {
     /// DATA SOURCE
     sl.registerLazySingleton<BaseProductRemoteDataSource>(
         () => ProductRemoteDataSource());
+  }
+
+  void _cartSL(){
+    /// Bloc
+    sl.registerLazySingleton(()=> CartBloc(sl(), sl(), sl(), sl()));
+
+    /// USE CACES
+    sl.registerLazySingleton(() => GetCartsUseCase(sl()));
+    sl.registerLazySingleton(() => AddCartsUseCase(sl()));
+    sl.registerLazySingleton(() => DeleteCartsUseCase(sl()));
+    sl.registerLazySingleton(() => UpdateCartsUseCase(sl()));
+
+    /// REPOSESITORY
+    sl.registerLazySingleton<BaseCartRepository>(()=>CartRepository(sl()));
+
+    /// DATA SOURCE
+    sl.registerLazySingleton<BaseCartRemoteDataSource>( ()=> CartRemoteDataSource());
   }
 }
