@@ -1,15 +1,26 @@
 import 'package:front_end/core/utils/typedef.dart';
 import 'package:front_end/features/auth/domain/entities/user.dart';
 
-
 abstract class BaseAuthRepository {
-  ResultVoid createUser(
-      {required String name,
-      required String email,
+  ResultFuture<User> getUser();
+
+  ResultFuture<User> signUp(
+      {required String username,
       required String password,
-      required String phone,
-      required String avatar,
-      required String createdAt});
-      
-  ResultFuture< List<User>> getUsers();
+      required String email,
+      required String firstName,
+      required String lastName});
+  ResultFuture<User> signIn(
+      {required String username, required String password});
+  ResultFuture<User> updateUser(
+      {required int id,
+      required String password,
+      String? username,
+      String? email,
+      String? firstName,
+      String? lastName});
+
+  ResultVoid logout();
+
+  ResultFuture<bool> isAuthorized();
 }
