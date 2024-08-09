@@ -5,7 +5,6 @@ import 'package:front_end/features/auth/presentation/controller/auth_bloc.dart';
 import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/core/utils/colors.dart';
 
-
 import '../components/custom_text.dart';
 import '../components/custom_textFormField.dart';
 import '../components/custom_button.dart';
@@ -46,6 +45,7 @@ class SignUpView extends StatelessWidget {
                         child: Column(
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 CustomText(
                                   text: 'Sign Up',

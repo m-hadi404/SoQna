@@ -5,6 +5,9 @@ import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/features/products/presentation/component/custem_text.dart';
 import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
 import 'package:front_end/features/products/presentation/screen/diteils_product.dart';
+import 'package:front_end/core/utils/colors.dart';
+
+import '../../../auth/presentation/controller/auth_bloc.dart';
 
 class CategoryProductsView extends StatefulWidget {
   @override
@@ -29,12 +32,15 @@ class _CategoryProductsViewState extends State<CategoryProductsView> {
     context.read<ProductBloc>().add(GetProductsEvent());
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome Back'),
+        title: Text('SoQna Store'),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.add_shopping_cart,
-                size: 40, color: Colors.green[30]),
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.shopping_bag_outlined,
+                  color: primaryColor, size: 25),
+            ),
           ),
         ],
       ),
@@ -69,7 +75,8 @@ class _CategoryProductsViewState extends State<CategoryProductsView> {
               leading: Icon(Icons.logout),
               title: Text('Logout'),
               onTap: () {
-                Navigator.pop(context);
+                context.read<AuthBloc>().add(LogoutEvent());
+                Navigator.popAndPushNamed(context, '/signIn');
               },
             ),
           ],

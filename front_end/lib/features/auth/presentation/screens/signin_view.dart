@@ -111,15 +111,11 @@ class SignInView extends StatelessWidget {
                             CustomButton(
                               'SIGN IN',
                               () {
-                                // if (_formKey.currentState!.validate()) {
-                                //   context.read<AuthBloc>().add(SignInEvent(
-                                //       username: username.text,
-                                //       password: password.text));
-                                // }
-                                print(context
-                                    .read<AuthBloc>()
-                                    .state
-                                    .isAuthorized);
+                                if (_formKey.currentState!.validate()) {
+                                  context.read<AuthBloc>().add(SignInEvent(
+                                      username: username.text,
+                                      password: password.text));
+                                }
                               },
                             ),
                           ],

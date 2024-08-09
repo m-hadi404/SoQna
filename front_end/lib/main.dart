@@ -5,6 +5,7 @@ import 'package:front_end/core/services/services_locator.dart';
 import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
 import 'package:front_end/features/products/presentation/screen/products.dart';
 import 'package:front_end/features/auth/presentation/controller/auth_bloc.dart';
+import 'check_auth.dart';
 import 'features/auth/presentation/screens/signin_view.dart';
 import 'features/auth/presentation/screens/signup_view.dart';
 
@@ -39,11 +40,12 @@ class MyApp extends StatelessWidget {
             ),
             debugShowCheckedModeBanner: false,
             title: 'soQna',
-            initialRoute: '/signIn',
+            initialRoute: '/checking',
             routes: {
+              '/checking' : (context) => const CheckAuth(),
+              '/': (context) =>  CategoryProductsView(),
               '/signIn': (context) => SignInView(),
               '/signUp': (context) => SignUpView(),
-              '/': (context) =>  CategoryProductsView(),
             },
           ),
         ),

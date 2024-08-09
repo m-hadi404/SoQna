@@ -116,7 +116,6 @@ class ProductDetailView extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  
                   padding: EdgeInsets.all(16.w),
                   child: CustomButton('ADD TO CART', () {
                     // action on button press
