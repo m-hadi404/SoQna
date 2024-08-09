@@ -31,9 +31,6 @@ class ServicesLocator {
     /// Bloc
     sl.registerLazySingleton(() => AuthBloc(sl(), sl()));
 
-    /// USE CACES
-    sl.registerLazySingleton(() => CreateUserUseCase(sl()));
-    sl.registerLazySingleton(() => GetUsersUseCase(sl()));
 
     /// REPOSESITORY
     sl.registerLazySingleton<BaseAuthRepository>(
