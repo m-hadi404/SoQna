@@ -16,6 +16,11 @@ class ApiConstances {
   static const String usersPath = "$_baseUrl/users";
   static const String productsPath = "$_baseUrl/products";
 
+  static const String cartsPath = "$_baseUrl/carts";
+  static const String addCartsPath = "$cartsPath/add";
+  static String deleteUpdateCartPath(int id) => "$cartsPath/$id";
+  static String cartsUserPath(int userId) => "$usersPath/$userId/carts";
+
   static Map<String, dynamic> headers(String token) {
     if (token != "") {
       return {"accept": "application/json", "Authorization": "Bearer $token"};
@@ -23,7 +28,6 @@ class ApiConstances {
       return {"accept": "application/json"};
     }
   }
-
   static Future<String> getToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');
