@@ -23,7 +23,7 @@ class SignInView extends StatelessWidget {
         if (state.signInState == RequestState.loaded) {
           Navigator.popAndPushNamed(context, '/');
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('login success')));
+              .showSnackBar(SnackBar(content: Text('Sign In success')));
         }
       },
       child: OrientationBuilder(

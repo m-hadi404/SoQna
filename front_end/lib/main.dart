@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           create: (context) => sl<AuthBloc>()..add(IsAuthorizedEvent()),
         ),
         BlocProvider(
-         create:  (context) => sl<ProductBloc>()..add(GetProductsEvent()),
+         create:  (context) => sl<ProductBloc>(),
         ),
       ],
       child: OrientationBuilder(
