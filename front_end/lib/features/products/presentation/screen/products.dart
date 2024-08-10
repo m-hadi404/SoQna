@@ -38,10 +38,13 @@ class _CategoryProductsViewState extends State<CategoryProductsView> {
             padding: const EdgeInsets.only(right: 8.0),
             child: IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/profile' );
+                Navigator.pushNamed(context, '/profile');
               },
-              icon: const Icon(Icons.shopping_bag_outlined,
-                  color: primaryColor, size: 25),
+              icon: Image.asset(
+                'assets/images/icons/account.png',
+                height: 30.h,
+                width: 30.w,
+              ),
             ),
           ),
         ],
@@ -104,7 +107,7 @@ class _CategoryProductsViewState extends State<CategoryProductsView> {
                   : state.searchResults;
               return Container(
                 padding: EdgeInsets.only(
-                    top: 65.h, bottom: 14.h, right: 16.w, left: 16.w),
+                    top: 15.h, bottom: 14.h, right: 16.w, left: 16.w),
                 child: Column(
                   children: [
                     Container(
