@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front_end/core/utils/colors.dart';
 
 import 'custom_text.dart';
 
@@ -19,7 +20,7 @@ class CustomButton extends StatelessWidget {
       child: CustomText(
         text: text,
         fontSize: 14,
-        color: Colors.white,
+        color: primaryColor,
         alignment: Alignment.center,
       ),
     );

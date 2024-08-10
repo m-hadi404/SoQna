@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:front_end/core/utils/user.dart';
 import 'package:front_end/features/carts/data/model/addCart_model.dart';
 import 'package:front_end/features/carts/presentation/controller/cart_bloc.dart';
 //import 'checkout_view.dart';
-import 'constants.dart';
-import '../widgets/custom_text.dart';
+import 'package:front_end/core/utils/colors.dart';
+import '../../../../core/widgets/custom_text.dart';
 
 class CartView extends StatelessWidget {
   final int index;
   final state;
-  const CartView({required this.index, required this.state, super.key});
+  final userId;
+  const CartView({required this.index, required this.state, required this.userId, super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
         child: Dismissible(
-      key: Key("${state.getCarts[index].id}"),
+      key: Key("${state.getCart[index].id}"),
       background: Container(
         color: Colors.red,
         alignment: Alignment.centerRight,
@@ -30,13 +30,13 @@ class CartView extends StatelessWidget {
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
           BlocProvider.of<CartBloc>(context)
-            ..add(DeleteCartEvent(id: state.getCarts[index].id));
+            ..add(DeleteCartEvent(id: state.getCart[index].id));
         }
       },
       child: Row(
         children: [
           Image.network(
-            state.getCarts[index].image,
+            state.getCart[index].image,
             height: 120.0,
             width: 120.0,
             fit: BoxFit.cover,
@@ -48,11 +48,11 @@ class CartView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                text: state.getCarts[index].title,
+                text: state.getCart[index].title,
                 fontSize: 16,
               ),
               CustomText(
-                text: '\$${state.getCarts[index].discountedTotal}',
+                text: '\$${state.getCart[index].discountedTotal}',
                 fontSize: 16,
                 color: primaryColor,
               ),
@@ -80,14 +80,14 @@ class CartView extends StatelessWidget {
                           BlocProvider.of<CartBloc>(context)
                               .add(UpdateCartEvent(id: userId, products: [
                             AddCartModel(
-                                productId: state.getCarts[index].id,
+                                productId: state.getCart[index].id,
                                 quantity:
-                                    state.getCarts[index].totalQuantity + 1)
+                                    state.getCart[index].totalQuantity + 1)
                           ]));
                         },
                       ),
                       CustomText(
-                        text: state.getCarts[index].totalQuantity.toString(),
+                        text: state.getCart[index].totalQuantity.toString(),
                         fontSize: 16,
                         alignment: Alignment.center,
                       ),
@@ -100,9 +100,9 @@ class CartView extends StatelessWidget {
                           BlocProvider.of<CartBloc>(context)
                               .add(UpdateCartEvent(id: userId, products: [
                             AddCartModel(
-                                productId: state.getCarts[index].id,
+                                productId: state.getCart[index].id,
                                 quantity:
-                                    state.getCarts[index].totalQuantity - 1)
+                                    state.getCart[index].totalQuantity - 1)
                           ]));
                         },
                       ),

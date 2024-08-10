@@ -18,7 +18,6 @@ class AuthRepository extends BaseAuthRepository {
   @override
   ResultFuture<User> getUser() async {
     final result = await _baseUserLocalDataSource.getUser();
-    print(result);
     try {
       return Right(result);
     } on DatabaseFailure catch (failure) {

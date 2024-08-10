@@ -4,7 +4,6 @@ import 'package:front_end/core/error/failure.dart';
 import 'package:front_end/core/utils/typedef.dart';
 import 'package:front_end/features/carts/data/data_source/cart_remote_data_source.dart';
 import 'package:front_end/features/carts/data/model/addCart_model.dart';
-import 'package:front_end/features/carts/domain/entities/cart.dart';
 import 'package:front_end/features/carts/domain/repository/base_cart_repository.dart';
 
 class CartRepository extends BaseCartRepository {
@@ -39,7 +38,7 @@ class CartRepository extends BaseCartRepository {
   }
 
   @override
-  ResultFuture<List<Cart>> getCart({required int userId}) async {
+  ResultFuture<Cart> getCart({required int userId}) async {
     try {
       final getdata = await _baseCartRemoteDataSource.getCart(userId: userId);
       return Right(getdata);

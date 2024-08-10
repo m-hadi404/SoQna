@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:front_end/core/utils/typedef.dart';
-import 'package:front_end/features/carts/domain/entities/cart.dart';
+import 'package:front_end/features/carts/domain/entities/cart_item.dart';
 
-class CartModel extends Cart {
-  const CartModel({
+class CartItemModel extends CartItem {
+  const CartItemModel({
     required super.id,
     required super.title,
     required super.discountedTotal,
@@ -12,8 +12,8 @@ class CartModel extends Cart {
     required super.image,
   });
 
-  factory CartModel.fromJson(DataMap map) {
-    return CartModel(
+  factory CartItemModel.fromJson(DataMap map) {
+    return CartItemModel(
       id: map['id'] as int,
       title: map['title'] as String,
       discountedTotal: map['total'] as double,
@@ -22,29 +22,18 @@ class CartModel extends Cart {
     );
   }
 
-  DataMap toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'title': title,
-      'discountedTotal': discountedTotal,
-      'totalQuantity': totalQuantity,
-      'image': image,
-    };
-  }
-
-  String toJson() => json.encode(toMap());
 
   @override
   bool get stringify => true;
 
-  CartModel copyWith({
+  CartItemModel copyWith({
     int? id,
     String? title,
     double? discountedTotal,
     int? totalQuantity,
     String? image,
   }) {
-    return CartModel(
+    return CartItemModel(
       id: id ?? this.id,
       title: title ?? this.title,
       discountedTotal: discountedTotal ?? this.discountedTotal,

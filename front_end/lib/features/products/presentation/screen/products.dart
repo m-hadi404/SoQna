@@ -38,7 +38,7 @@ class _CategoryProductsViewState extends State<CategoryProductsView> {
             padding: const EdgeInsets.only(right: 8.0),
             child: IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/cart');
+                Navigator.pushNamed(context, '/profile' );
               },
               icon: const Icon(Icons.shopping_bag_outlined,
                   color: primaryColor, size: 25),
