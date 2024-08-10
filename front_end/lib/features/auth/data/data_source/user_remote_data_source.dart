@@ -62,7 +62,7 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
           'lastName': lastName,
         }));
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print(response.data);
+      // print(response.data);
       return UserModel.fromJson(response.data as DataMap);
     } else {
       throw ServerException(

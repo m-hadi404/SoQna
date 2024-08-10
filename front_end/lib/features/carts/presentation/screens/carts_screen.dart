@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:front_end/core/utils/colors.dart';
 import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/core/utils/typedef.dart';
+import 'package:front_end/features/auth/presentation/controller/auth_bloc.dart';
 import 'package:front_end/features/carts/presentation/controller/cart_bloc.dart';
 import 'package:front_end/features/carts/presentation/screens/cart_view.dart';
 import '../controller/cubit/orders_cubit.dart';
@@ -10,8 +11,7 @@ import '../../../../core/widgets/custom_text.dart';
 import '../../../../core/widgets/custom_button.dart';
 
 class CartsScreen extends StatefulWidget {
-  const CartsScreen({super.key, required this.userId});
-  final int userId;
+  const CartsScreen({super.key});
   @override
   State<CartsScreen> createState() => _CartsScreenState();
 }
@@ -19,7 +19,8 @@ class CartsScreen extends StatefulWidget {
 class _CartsScreenState extends State<CartsScreen> {
   @override
   Widget build(BuildContext context) {
-    context.read<CartBloc>().add(GetCartEvent(userId: widget.userId));
+    int userId = context.watch<AuthBloc>().state.user.id;
+    context.read<CartBloc>().add(GetCartEvent(userId: userId));
     return Scaffold(
         appBar: AppBar(
           title: const Text('Carts'),
@@ -38,7 +39,7 @@ class _CartsScreenState extends State<CartsScreen> {
                       itemCount: state.getCart.length,
                       itemBuilder: (context, index) {
                         return CartView(
-                            index: index, state: state, userId: widget.userId);
+                            index: index, state: state, userId: userId);
                       },
                     ),
                   ),

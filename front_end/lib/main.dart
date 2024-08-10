@@ -26,6 +26,7 @@ Future<void> main() async {
         ? HydratedStorage.webStorageDirectory
         : await getApplicationDocumentsDirectory(),
   );
+
   runApp(const MyApp());
 }
 
@@ -68,14 +69,10 @@ class MyApp extends StatelessWidget {
               '/': (context) => CategoryProductsView(),
               '/signIn': (context) => SignInView(),
               '/signUp': (context) => SignUpView(),
-              '/cart': (context) {
-                return CartsScreen(
-                  userId: context.watch<AuthBloc>().state.user.id,
-                );
-              },
-            '/orders' : (context) => OrderHistoryView(),
-            '/profile' : (context) => ProfileView(),
-            '/editProfile' : (context) => EditProfileView(),
+              '/cart': (context) => CartsScreen(),
+              '/orders': (context) => OrderHistoryView(),
+              '/profile': (context) => ProfileView(),
+              '/editProfile': (context) => EditProfileView(),
             },
           ),
         ),
