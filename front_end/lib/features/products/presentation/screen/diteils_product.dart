@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:front_end/core/utils/colors.dart';
 import 'package:front_end/core/utils/enums.dart';
+import 'package:front_end/features/carts/data/model/addCart_model.dart';
+import 'package:front_end/features/carts/presentation/controller/cart_bloc.dart';
 import 'package:front_end/features/products/presentation/component/custem_text.dart';
 import 'package:front_end/features/products/presentation/component/custm_buttn.dart';
 import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
+
+import '../../../auth/presentation/controller/auth_bloc.dart';
 
 class ProductDetailView extends StatelessWidget {
   ProductDetailView();
@@ -86,7 +91,8 @@ class ProductDetailView extends StatelessWidget {
                                       height: 22.h,
                                       width: 22.w,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8.r),
+                                        borderRadius:
+                                            BorderRadius.circular(8.r),
                                       ),
                                     ),
                                   ),
@@ -118,7 +124,23 @@ class ProductDetailView extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(16.w),
                   child: CustomButton('ADD TO CART', () {
-                    // action on button press
+                    try {
+                      context.read<CartBloc>().add(AddCartEvent(
+                              userId: context.watch<AuthBloc>().state.user.id,
+                              products: [
+                                AddCartModel(
+                                    productId: state.getProduct?.id ?? 0,
+                                    quantity: 1)
+                              ]));
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Product added to cart'),
+                        margin: EdgeInsets.all(8.0),
+                        backgroundColor: primaryColor,
+                        behavior: SnackBarBehavior.floating,
+                      ));
+                    } catch (e) {
+                      print(e);
+                    }
                   }),
                 ),
               ],

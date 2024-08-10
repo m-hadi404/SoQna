@@ -5,9 +5,6 @@ import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/features/products/presentation/component/custem_text.dart';
 import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
 import 'package:front_end/features/products/presentation/screen/diteils_product.dart';
-import 'package:front_end/core/utils/colors.dart';
-
-import '../../../auth/presentation/controller/auth_bloc.dart';
 
 class CategoryProductsView extends StatefulWidget {
   @override
@@ -33,55 +30,19 @@ class _CategoryProductsViewState extends State<CategoryProductsView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('SoQna Store'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/cart');
-              },
-              icon: const Icon(Icons.shopping_bag_outlined,
-                  color: primaryColor, size: 25),
+        centerTitle: true,
+        leading: Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/profile');
+            },
+            icon: Image.asset(
+              'assets/images/icons/account.png',
+              height: 25.h,
+              width: 25.w,
             ),
           ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(color: Colors.black87, fontSize: 24),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
-              onTap: () {
-                context.read<AuthBloc>().add(LogoutEvent());
-                Navigator.popAndPushNamed(context, '/signIn');
-              },
-            ),
-          ],
         ),
       ),
       body: BlocBuilder<ProductBloc, ProductState>(
@@ -104,7 +65,7 @@ class _CategoryProductsViewState extends State<CategoryProductsView> {
                   : state.searchResults;
               return Container(
                 padding: EdgeInsets.only(
-                    top: 65.h, bottom: 14.h, right: 16.w, left: 16.w),
+                    top: 15.h, bottom: 14.h, right: 16.w, left: 16.w),
                 child: Column(
                   children: [
                     Container(

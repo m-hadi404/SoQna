@@ -4,11 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:front_end/core/error/exceptions.dart';
 import 'package:front_end/core/network/api_constances.dart';
 import 'package:front_end/core/network/error_message.dart';
+import 'package:front_end/core/utils/typedef.dart';
 import 'package:front_end/features/carts/data/model/addCart_model.dart';
-import 'package:front_end/features/carts/data/model/cart_model.dart';
+import 'package:front_end/features/carts/data/model/cart_item_model.dart';
 
 abstract class BaseCartRemoteDataSource {
-  Future<List<CartModel>> getCart({required int userId});
+  Future<CartModel> getCart({required int userId});
   Future<void> addCart(
       {required int userId, required List<AddCartModel> products});
   Future<void> deleteCart({required int id});
@@ -43,18 +44,18 @@ class CartRemoteDataSource extends BaseCartRemoteDataSource {
   }
 
   @override
-  Future<List<CartModel>> getCart({required int userId}) async {
+  Future<CartModel> getCart({required int userId}) async {
     final response = await Dio().get(ApiConstances.cartsUserPath(userId));
     if (response.statusCode == 200) {
       if (response.data != null) {
-        final List<CartModel> getCarts = List<CartModel>.from(
+        final CartModel getCarts = CartModel.from(
             (response.data['carts'][0]['products'] as List)
-                .map((e) => CartModel.fromJson(e)));
+                .map((e) => CartItemModel.fromJson(e)));
         return getCarts;
       } else {
         print("no product");
         return [
-          const CartModel(
+          const CartItemModel(
               discountedTotal: 0,
               id: 0,
               title: '0',

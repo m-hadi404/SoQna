@@ -33,11 +33,13 @@ class ServicesLocator {
   void init() {
     _authSL();
     _productsSL();
+    _cartSL();
   }
 
   void _authSL() {
     /// Bloc
-    sl.registerLazySingleton(() => AuthBloc(sl(), sl(),sl(),sl(),sl(),sl()));
+    sl.registerLazySingleton(
+        () => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl()));
 
     /// USE CACES
     sl.registerLazySingleton(() => GetUserUseCase(sl()));
@@ -49,14 +51,13 @@ class ServicesLocator {
 
     /// REPOSESITORY
     sl.registerLazySingleton<BaseAuthRepository>(
-        () => AuthRepository(sl(),sl()));
+        () => AuthRepository(sl(), sl()));
 
     /// DATA SOURCE
     sl.registerLazySingleton<BaseUserLocalDataSource>(
         () => UserLocalDataSource(baseUserRemoteDataSource: sl()));
     sl.registerLazySingleton<BaseUserRemoteDataSource>(
         () => UserRemoteDataSource());
-
   }
 
   void _productsSL() {
@@ -75,9 +76,9 @@ class ServicesLocator {
         () => ProductRemoteDataSource());
   }
 
-  void _cartSL(){
+  void _cartSL() {
     /// Bloc
-    sl.registerLazySingleton(()=> CartBloc(sl(), sl(), sl(), sl()));
+    sl.registerLazySingleton(() => CartBloc(sl(), sl(), sl(), sl()));
 
     /// USE CACES
     sl.registerLazySingleton(() => GetCartsUseCase(sl()));
@@ -86,9 +87,10 @@ class ServicesLocator {
     sl.registerLazySingleton(() => UpdateCartsUseCase(sl()));
 
     /// REPOSESITORY
-    sl.registerLazySingleton<BaseCartRepository>(()=>CartRepository(sl()));
+    sl.registerLazySingleton<BaseCartRepository>(() => CartRepository(sl()));
 
     /// DATA SOURCE
-    sl.registerLazySingleton<BaseCartRemoteDataSource>( ()=> CartRemoteDataSource());
+    sl.registerLazySingleton<BaseCartRemoteDataSource>(
+        () => CartRemoteDataSource());
   }
 }

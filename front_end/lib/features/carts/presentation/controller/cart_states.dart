@@ -4,7 +4,7 @@ class CartState extends Equatable {
   final RequestState createCartState;
   final String createCartMessage;
 
-  final List<Cart> getCarts;
+  final Cart getCart;
   final RequestState getCartsState;
   final String getCartsMessage;
 
@@ -12,7 +12,7 @@ class CartState extends Equatable {
       {
       this.createCartState = RequestState.loading,
       this.createCartMessage = '',
-      this.getCarts = const [],
+      this.getCart = const [],
       this.getCartsState = RequestState.loading,
       this.getCartsMessage = '',
       });
@@ -20,14 +20,14 @@ class CartState extends Equatable {
   CartState copyWith({
     RequestState? createCartState,
     String? createCartMessage,
-    List<Cart>? getCarts,
+    Cart? getCart,
     RequestState? getCartsState,
     String? getCartsMessage,
   }) {
     return CartState(
       createCartState: createCartState ?? this.createCartState,
       createCartMessage: createCartMessage ?? this.createCartMessage,
-      getCarts: getCarts ?? this.getCarts,
+      getCart: getCart ?? this.getCart,
       getCartsState: getCartsState ?? this.getCartsState,
       getCartsMessage: getCartsMessage ?? this.getCartsMessage,
     );
@@ -37,7 +37,7 @@ class CartState extends Equatable {
   List<Object?> get props => [
         createCartState,
         createCartMessage,
-        getCarts,
+        getCart,
         getCartsState,
         getCartsMessage,
       ];

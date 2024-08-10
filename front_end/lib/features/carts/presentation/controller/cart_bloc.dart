@@ -2,13 +2,14 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:front_end/core/utils/typedef.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/features/carts/data/model/addCart_model.dart';
 import 'package:front_end/features/carts/domain/usecase/add_cart.dart';
 import 'package:front_end/features/carts/domain/usecase/delete_cart.dart';
 import 'package:front_end/features/carts/domain/usecase/get_carts.dart';
 import 'package:front_end/features/carts/domain/usecase/update_cart.dart';
-import '../../domain/entities/cart.dart';
 
 part 'cart_events.dart';
 part 'cart_states.dart';
@@ -35,7 +36,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       emit(state.copyWith(
           createCartMessage: l.message, createCartState: RequestState.error));
     }, (re) {
-      emit(state.copyWith(getCartsState: RequestState.loaded, getCarts: re));
+      emit(state.copyWith(getCartsState: RequestState.loaded, getCart: re));
       print('object');
     });
   }
