@@ -11,6 +11,7 @@ import 'package:front_end/profile_view.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'check_auth.dart';
+import 'features/auth/presentation/screens/edit_profile_view.dart';
 import 'features/auth/presentation/screens/signin_view.dart';
 import 'features/auth/presentation/screens/signup_view.dart';
 import 'features/carts/presentation/controller/cart_bloc.dart';
@@ -74,6 +75,7 @@ class MyApp extends StatelessWidget {
               },
             '/orders' : (context) => OrderHistoryView(),
             '/profile' : (context) => ProfileView(),
+            '/editProfile' : (context) => EditProfileView(),
             },
           ),
         ),

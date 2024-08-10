@@ -5,9 +5,6 @@ import 'package:front_end/core/utils/enums.dart';
 import 'package:front_end/features/products/presentation/component/custem_text.dart';
 import 'package:front_end/features/products/presentation/controller/product_bloc.dart';
 import 'package:front_end/features/products/presentation/screen/diteils_product.dart';
-import 'package:front_end/core/utils/colors.dart';
-
-import '../../../auth/presentation/controller/auth_bloc.dart';
 
 class CategoryProductsView extends StatefulWidget {
   @override
@@ -33,58 +30,19 @@ class _CategoryProductsViewState extends State<CategoryProductsView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('SoQna Store'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/profile');
-              },
-              icon: Image.asset(
-                'assets/images/icons/account.png',
-                height: 30.h,
-                width: 30.w,
-              ),
+        centerTitle: true,
+        leading: Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/profile');
+            },
+            icon: Image.asset(
+              'assets/images/icons/account.png',
+              height: 25.h,
+              width: 25.w,
             ),
           ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(color: Colors.black87, fontSize: 24),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
-              onTap: () {
-                context.read<AuthBloc>().add(LogoutEvent());
-                Navigator.popAndPushNamed(context, '/signIn');
-              },
-            ),
-          ],
         ),
       ),
       body: BlocBuilder<ProductBloc, ProductState>(

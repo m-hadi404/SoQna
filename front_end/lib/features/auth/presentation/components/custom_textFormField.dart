@@ -11,14 +11,14 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
   final TextEditingController? controller;
-
-  const CustomTextFormField({
+  final Function(String?)? onSaved;
+  const CustomTextFormField({super.key, 
     required this.title,
     required this.hintText,
     required this.validatorFn,
     this.keyboardType,
     this.obscureText = false,
-    this.controller
+    this.controller,this.onSaved,
   });
 
   @override
@@ -47,6 +47,7 @@ class CustomTextFormField extends StatelessWidget {
           obscureText: obscureText,
           validator: validatorFn,
           controller:controller,
+          onSaved: onSaved,
         ),
       ],
     );

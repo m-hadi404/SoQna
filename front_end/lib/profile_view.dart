@@ -84,7 +84,7 @@ class ProfileView extends StatelessWidget {
                         iconName: '1',
                         title: 'Edit Profile',
                         onTapFn: () {
-                          // Get.to(EditProfileView());
+                          Navigator.pushNamed(context, '/editProfile');
                         },
                       ),
                       CustomListTile(
@@ -92,7 +92,7 @@ class ProfileView extends StatelessWidget {
                         title: 'Order History',
                         onTapFn: () {
                           Navigator.pushNamed(context, '/orders');
-                          ;
+                          
                         },
                       ),
                       CustomListTile(
@@ -100,7 +100,7 @@ class ProfileView extends StatelessWidget {
                         title: 'Cards',
                         onTapFn: () {
                           Navigator.pushNamed(context, '/cart');
-                          ;
+                          
                         },
                       ),
                       CustomListTile(
